@@ -24,7 +24,7 @@ namespace xGame2D
 	{
 	constructor:
 		GLTexture();
-		~GLTexture();
+		virtual ~GLTexture();
 
 	public:
 		virtual bool init() override;

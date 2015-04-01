@@ -17,7 +17,7 @@ namespace xGame2D
     {
     constructor:
         RenderSupport();
-        ~RenderSupport();
+		virtual ~RenderSupport();
 
 	public:
 		virtual bool init() override;

@@ -19,7 +19,7 @@ namespace xGame2D
 
 	int32_t Utils::nextPowerOfTwo(int32_t number)
 	{
-		int32_t result = 1;
+		auto result = 1;
 		while (result < number) result *= 2;
 		return result;
 	}
@@ -78,9 +78,9 @@ namespace xGame2D
 		{
 			std::ifstream file(path.c_str(), std::ios::binary);
 			file.seekg(0, file.end);
-			size_t size = (size_t)file.tellg();
+			auto size = static_cast<size_t>(file.tellg());
 			file.seekg(0, file.beg);
-			char *buffer = (char *)malloc(size);
+			auto buffer = static_cast<char *>(malloc(size));
 			file.read(buffer, size);
 			file.close();
 			return Object::create<Data>(buffer, size);

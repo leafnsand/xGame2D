@@ -21,7 +21,7 @@ namespace xGame2D
 	{
 		if (flattenContents)
 		{
-			for (auto i = flattenContents->begin(); i != flattenContents->end(); i++)
+			for (auto i = flattenContents->begin(); i != flattenContents->end(); ++i)
 			{
 				(*i)->release();
 			}
@@ -44,7 +44,7 @@ namespace xGame2D
 		flattenRequested = false;
 		if (flattenContents)
 		{
-			for (auto i = flattenContents->begin(); i != flattenContents->end(); i++)
+			for (auto i = flattenContents->begin(); i != flattenContents->end(); ++i)
 			{
 				(*i)->release();
 			}
@@ -60,13 +60,13 @@ namespace xGame2D
 		float maxX = -FLT_MAX;
 		float minY = FLT_MAX;
 		float maxY = -FLT_MAX;
-		float clipLeft = clipRect->left();
-		float clipRight = clipRect->right();
-		float clipTop = clipRect->top();
-		float clipBottom = clipRect->bottom();
-		Matrix *transform = transformationMatrixToSpace(targetSpace);
-		float x = 0.0f, y = 0.0f;
-		for (int i = 0; i < 4; i++)
+		auto clipLeft = clipRect->left();
+		auto clipRight = clipRect->right();
+		auto clipTop = clipRect->top();
+		auto clipBottom = clipRect->bottom();
+		auto transform = transformationMatrixToSpace(targetSpace);
+		auto x = 0.0f, y = 0.0f;
+		for (auto i = 0; i < 4; i++)
 		{
 			switch (i)
 			{
@@ -75,7 +75,7 @@ namespace xGame2D
 				case 2: x = clipRight; y = clipTop;    break;
 				case 3: x = clipRight; y = clipBottom; break;
 			}
-			Point *transformedPoint = transform->transform(x, y);
+			auto transformedPoint = transform->transform(x, y);
 			if (minX > transformedPoint->x) minX = transformedPoint->x;
 			if (maxX < transformedPoint->x) maxX = transformedPoint->x;
 			if (minY > transformedPoint->y) minY = transformedPoint->y;
@@ -88,7 +88,7 @@ namespace xGame2D
 	{
 		if (clipRect)
 		{
-			Rectangle *stageClipRect = support->pushClipRect(clipRectInSpace(dynamic_cast<DisplayObject *>(getStage())));
+			auto stageClipRect = support->pushClipRect(clipRectInSpace(dynamic_cast<DisplayObject *>(getStage())));
 			if (!stageClipRect || stageClipRect->isEmpty())
 			{
 				support->popClipRect();
@@ -103,13 +103,13 @@ namespace xGame2D
 		if (flattenContents)
 		{
 			support->finishQuadBatch();
-			support->addDrawCalls((int32_t)flattenContents->size());
-			Matrix *mvpMatrix = support->getMvpMatrix();
-			float alpha = support->getAlpha();
-			uint32_t supportBlendMode = support->getBlendMode();
-			for (auto i = flattenContents->begin(); i != flattenContents->end(); i++)
+			support->addDrawCalls(static_cast<int32_t>(flattenContents->size()));
+			auto mvpMatrix = support->getMvpMatrix();
+			auto alpha = support->getAlpha();
+			auto supportBlendMode = support->getBlendMode();
+			for (auto i = flattenContents->begin(); i != flattenContents->end(); ++i)
 			{
-				uint32_t blendMode = (*i)->getBlendMode();
+				auto blendMode = (*i)->getBlendMode();
 				if (blendMode == BlendModeAuto) blendMode = supportBlendMode;
 				(*i)->renderWithMvpMatrix(mvpMatrix, alpha, blendMode);
 			}
@@ -126,7 +126,7 @@ namespace xGame2D
 
 	Rectangle *Sprite::boundsInSpace(DisplayObject *targetSpace)
 	{
-		Rectangle *bounds = DisplayObjectContainer::boundsInSpace(targetSpace);
+		auto bounds = DisplayObjectContainer::boundsInSpace(targetSpace);
 		if (clipRect)
 		{
 			bounds = bounds->intersectionWithRectangle(clipRectInSpace(targetSpace));

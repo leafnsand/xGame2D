@@ -16,7 +16,7 @@ namespace xGame2D
 	{
 	constructor:
 		Game();
-		~Game();
+		virtual ~Game();
 
 	public:
 		static inline Game *getInstance() { if (instance == nullptr) instance = Object::generate<Game>(); return instance;}

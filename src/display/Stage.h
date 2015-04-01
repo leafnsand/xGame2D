@@ -9,7 +9,7 @@ namespace xGame2D
 	{
 	constructor:
 		Stage();
-		~Stage();
+		virtual ~Stage();
 
 	public:
 		OVERRIDE_DEFAULT_INIT

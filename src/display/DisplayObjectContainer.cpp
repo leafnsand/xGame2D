@@ -179,11 +179,11 @@ namespace xGame2D {
 
 	Rectangle *DisplayObjectContainer::boundsInSpace(DisplayObject *targetSpace)
 	{
-		int32_t numChildren = (int32_t)children.size();
+		auto numChildren = static_cast<int32_t>(children.size());
 		if (numChildren == 0)
 		{
-			Matrix *transformationMatrix = transformationMatrixToSpace(targetSpace);
-			Point *transformedPoint = transformationMatrix->transform(x, y);
+			auto transformationMatrix = transformationMatrixToSpace(targetSpace);
+			auto transformedPoint = transformationMatrix->transform(x, y);
 			return Object::create<Rectangle>(transformedPoint->x, transformedPoint->y, 0.0f, 0.0f);
 		}
         else if (numChildren == 1)
@@ -195,7 +195,7 @@ namespace xGame2D {
             float minX = FLT_MAX, maxX = -FLT_MAX, minY = FLT_MAX, maxY = -FLT_MAX;
 			for (auto child : children)
 			{
-				Rectangle *childBounds = child->boundsInSpace(targetSpace);
+				auto childBounds = child->boundsInSpace(targetSpace);
                 minX = MIN(minX, childBounds->x);
                 maxX = MAX(maxX, childBounds->x + childBounds->width);
                 minY = MIN(minY, childBounds->y);
@@ -213,9 +213,9 @@ namespace xGame2D {
         }
 		for (auto child : children)
 		{
-            Matrix *transformationMatrix = transformationMatrixToSpace(child);
-            Point *transformedPoint = transformationMatrix->transform(localPoint);
-            DisplayObject *target = child->hitTestPoint(transformedPoint);
+			auto transformationMatrix = transformationMatrixToSpace(child);
+			auto transformedPoint = transformationMatrix->transform(localPoint);
+			auto target = child->hitTestPoint(transformedPoint);
             if (target)
             {
                 return touchGroup ? this : target;

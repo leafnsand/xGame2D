@@ -46,16 +46,16 @@ namespace xGame2D
 
 	void BaseEffect::prepareToDraw()
 	{
-        bool hasTexture = texture != nullptr;
-        bool useTinting = this->useTinting || !texture || alpha != 1.0f;
+		auto hasTexture = texture != nullptr;
+        auto useTinting = this->useTinting || !texture || alpha != 1.0f;
         if (!program)
         {
-            std::string programName = getProgramName(hasTexture, useTinting);
+            auto programName = getProgramName(hasTexture, useTinting);
 			program = Game::getInstance()->programCache->getProgram(programName);
             if (!program)
             {
-                std::string vertexShader = vertexShaderForTexture(texture, useTinting);
-                std::string fragmentShader = fragmentShaderForTexture(texture, useTinting);
+				auto vertexShader = vertexShaderForTexture(texture, useTinting);
+				auto fragmentShader = fragmentShaderForTexture(texture, useTinting);
 				program = Object::generate<Program>(vertexShader, fragmentShader);
 				Game::getInstance()->programCache->registerProgram(program, programName);
             }
@@ -172,7 +172,7 @@ namespace xGame2D
 
 	std::string BaseEffect::vertexShaderForTexture(Texture *texture, bool useTinting)
 	{
-        bool hasTexture = texture != nullptr;
+		auto hasTexture = texture != nullptr;
         std::string source;
 #if defined(X_PLATFORM_MACOSX) || defined(X_PLATFORM_WIN)
         source.append("#define lowp\n");
@@ -212,7 +212,7 @@ namespace xGame2D
 
 	std::string BaseEffect::fragmentShaderForTexture(Texture *texture, bool useTinting)
 	{
-        bool hasTexture = texture != nullptr;
+		auto hasTexture = texture != nullptr;
         std::string source;
 #if defined(X_PLATFORM_MACOSX) || defined(X_PLATFORM_WIN)
         source.append("#define lowp\n");

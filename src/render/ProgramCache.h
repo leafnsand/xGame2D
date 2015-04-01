@@ -12,7 +12,7 @@ namespace xGame2D {
     {
     constructor:
 		ProgramCache();
-		~ProgramCache();
+		virtual ~ProgramCache();
 
 	public:
         void registerProgram(Program *program, std::string &name);

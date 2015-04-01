@@ -12,7 +12,7 @@ namespace xGame2D
 	{
 	constructor:
 		Context();
-		~Context();
+		virtual ~Context();
 
 	public:
 		void renderToBackBuffer();

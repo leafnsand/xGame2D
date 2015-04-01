@@ -32,7 +32,7 @@ namespace xGame2D
 		{
 			return nullptr;
 		}
-		DisplayObject *target = DisplayObjectContainer::hitTestPoint(localPoint);
+		auto target = DisplayObjectContainer::hitTestPoint(localPoint);
 		if (!target) target = this;
 		return target;
 	}

@@ -57,30 +57,30 @@ namespace xGame2D
 
 	void SubTexture::adjustVertexData(VertexData *vertexData, int32_t index, int32_t count)
 	{
-		Vertex *vertices = vertexData->getVertices();
-		int32_t stride = static_cast<int32_t>(sizeof(Vertex)-sizeof(Position));
+		auto vertices = vertexData->getVertices();
+		auto stride = static_cast<int32_t>(sizeof(Vertex) - sizeof(Position));
 		adjustPositions(&vertices[index].position, count, stride);
 		adjustTexcoords(&vertices[index].texcoords, count, stride);
 	}
 
 	void SubTexture::adjustTexcoords(void *data, int32_t count, int32_t stride)
 	{
-		Texture *texture = this;
-		Matrix *matrix = Object::create<Matrix>();
+		Texture *texture = dynamic_cast<Texture *>(this);
+		auto matrix = Object::create<Matrix>();
 		do 
 		{
-			SubTexture *subTexture = dynamic_cast<SubTexture *>(texture);
+			auto subTexture = dynamic_cast<SubTexture *>(texture);
 			matrix->appendMatrix(subTexture->transformationMatrix);
 			texture = subTexture->parent;
 		}
 		while (dynamic_cast<SubTexture *>(texture));
 		int32_t step = sizeof(Position) + stride;
-		char *pointer = static_cast<char *>(data);
+		auto pointer = static_cast<char *>(data);
 		for (auto i = 0; i < count; i++)
 		{
-			Position *position = (Position *)pointer;
-			float x = position->x;
-			float y = position->y;
+			auto position = (Position *)pointer;
+			auto x = position->x;
+			auto y = position->y;
 			position->x = matrix->a * x + matrix->c * y + matrix->tx;
 			position->y = matrix->d * y + matrix->b * x + matrix->ty;
 			pointer += step;
@@ -96,10 +96,10 @@ namespace xGame2D
 				Console::Error("Textures with a frame can only be used on quads");
 				return;
 			}
-			float deltaRight = frame->width + frame->x - width;
-			float deltaBottom = frame->height + frame->y - height;
+			auto deltaRight = frame->width + frame->x - width;
+			auto deltaBottom = frame->height + frame->y - height;
 			int32_t step = sizeof(Position) + stride;
-			char *pointer = static_cast<char *>(data);
+			auto pointer = static_cast<char *>(data);
 			Position *pos = nullptr;
 
 			pos = (Position *)pointer;
@@ -202,16 +202,16 @@ namespace xGame2D
 
 	Rectangle *SubTexture::getRegion()
 	{
-		Rectangle *clipping = getClipping();
-		GLTexture *root = getRoot();
+		auto clipping = getClipping();
+		auto root = getRoot();
 		return Object::create<Rectangle>(clipping->x * root->getNativeWidth(), clipping->y * root->getNativeHeight(),
 			clipping->width * root->getNativeWidth(), clipping->height * root->getNativeHeight());
 	}
 	Rectangle *SubTexture::getClipping()
 	{
-		Point *topLeft = transformationMatrix->transform(0.0f, 0.0f);
-		Point *bottomRight = transformationMatrix->transform(1.0f, 1.0f);
-		Rectangle *clipping = Object::create<Rectangle>(topLeft->x, topLeft->y, bottomRight->x - topLeft->x, bottomRight->y - topLeft->y);
+		auto topLeft = transformationMatrix->transform(0.0f, 0.0f);
+		auto bottomRight = transformationMatrix->transform(1.0f, 1.0f);
+		auto clipping = Object::create<Rectangle>(topLeft->x, topLeft->y, bottomRight->x - topLeft->x, bottomRight->y - topLeft->y);
 		clipping->normalize();
 		return clipping;
 	}

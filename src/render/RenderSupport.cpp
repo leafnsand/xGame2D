@@ -55,9 +55,9 @@ namespace xGame2D
 
 	void RenderSupport::batchQuad(Quad *quad)
 	{
-		float alpha = stateStackTop->alpha;
-		uint32_t blendMode = stateStackTop->blendMode;
-		Matrix *modelviewMatrix = stateStackTop->modelviewMatrix;
+		auto alpha = stateStackTop->alpha;
+		auto blendMode = stateStackTop->blendMode;
+		auto modelviewMatrix = stateStackTop->modelviewMatrix;
 		if (quadBatchTop->isStateChangeWithTinted(quad->getTinted(), quad->getTexture(), quad->getAlpha(), quad->getPremultipliedAlpha(), quad->getBlendMode(), 1))
 		{
 			finishQuadBatch();
@@ -106,9 +106,9 @@ namespace xGame2D
 
 	void RenderSupport::clear(uint32_t color, float alpha)
 	{
-		float red = ColorGetRed(color) / 255.0f;
-		float green = ColorGetGreen(color) / 255.0f;
-		float blue = ColorGetBlue(color) / 255.0f;
+		auto red = ColorGetRed(color) / 255.0f;
+		auto green = ColorGetGreen(color) / 255.0f;
+		auto blue = ColorGetBlue(color) / 255.0f;
 		glClearColor(red, green, blue, alpha);
 		glClear(GL_COLOR_BUFFER_BIT);
 	}
@@ -146,7 +146,7 @@ namespace xGame2D
 
 	void RenderSupport::pushState(Matrix *matrix, float alpha, uint32_t blendMode)
 	{
-		RenderState *previousState = stateStackTop;
+		auto previousState = stateStackTop;
 		if (stateStackSize == stateStackIndex + 1)
 		{
 			stateStack.push_back(Object::generate<RenderState>());
@@ -172,11 +172,11 @@ namespace xGame2D
 
 	Rectangle *RenderSupport::pushClipRect(Rectangle *clipRect)
 	{
-		if ((int32_t)clipRectStack.size() < clipRectStackSize + 1)
+		if (static_cast<int32_t>(clipRectStack.size()) < clipRectStackSize + 1)
 		{
 			clipRectStack.push_back(Object::generate<Rectangle>());
 		}
-		Rectangle *rectangle = clipRectStack[clipRectStackSize];
+		auto rectangle = clipRectStack[clipRectStackSize];
 		if (clipRectStackSize > 0)
 		{
 			rectangle = rectangle->intersectionWithRectangle(clipRectStack[clipRectStackSize - 1]);
@@ -199,7 +199,7 @@ namespace xGame2D
 	{
 		finishQuadBatch();
         if (!Game::getInstance()) return;
-		Context *context = Game::getInstance()->context;
+		auto context = Game::getInstance()->context;
 		if (!context) return;
 		if (clipRectStackSize > 0)
 		{
@@ -275,16 +275,16 @@ namespace xGame2D
 
 	void RenderSupport::trimQuadBatches()
 	{
-		int32_t numUsedBatches = quadBatchIndex + 1;
+		auto numUsedBatches = quadBatchIndex + 1;
 		if (quadBatchSize >= 16 && quadBatchSize > 2 * numUsedBatches)
 		{
-			for (int32_t i = quadBatchSize - 1; i > quadBatchIndex; i++)
+			for (auto i = quadBatchSize - 1; i > quadBatchIndex; i++)
 			{
-				QuadBatch *batch = quadBatches[i];
+				auto batch = quadBatches[i];
 				batch->release();
 				quadBatches.pop_back();
 			}
-			quadBatchSize = (int32_t)quadBatches.size();
+			quadBatchSize = static_cast<int32_t>(quadBatches.size());
 		}
 	}
 }

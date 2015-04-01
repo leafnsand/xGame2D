@@ -12,7 +12,7 @@ namespace xGame2D
 	{
 	constructor:
 		Sprite();
-		~Sprite();
+		virtual ~Sprite();
 
 	public:
 		void flatten();

@@ -11,7 +11,7 @@ namespace xGame2D
 	{
 	constructor:
 		SubTexture();
-		~SubTexture();
+		virtual ~SubTexture();
 
 	public:
 		OVERRIDE_DEFAULT_INIT

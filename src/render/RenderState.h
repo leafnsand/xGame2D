@@ -11,7 +11,7 @@ namespace xGame2D
 	{
 	constructor:
 		RenderState();
-		~RenderState();
+		virtual ~RenderState();
 
 	public:
 		void setupDerived(RenderState *state, Matrix *matrix, float alpha, uint32_t blendMode);

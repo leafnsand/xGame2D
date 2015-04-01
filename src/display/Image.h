@@ -8,7 +8,7 @@ namespace xGame2D {
     {
     constructor:
         Image();
-        ~Image();
+		virtual ~Image();
         
 	public:
 		virtual bool init() override { return Quad::init(); }

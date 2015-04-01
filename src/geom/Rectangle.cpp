@@ -71,7 +71,7 @@ namespace xGame2D
 	{
 		if (!rectangle)
 		{
-			Rectangle *value = copy();
+			auto value = copy();
 			value->autorelease();
 			return value;
 		}

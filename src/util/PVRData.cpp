@@ -62,7 +62,7 @@ namespace xGame2D
 	{
 		rawData = data;
 		rawData->retain();
-		PVRTextureHeader *header = (PVRTextureHeader *)rawData->getBuffer();
+		auto header = static_cast<PVRTextureHeader *>(rawData->getBuffer());
 		width = header->width;
 		height = header->height;
 		numMipmaps = header->numMipmaps;

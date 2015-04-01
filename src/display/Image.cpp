@@ -30,10 +30,10 @@ namespace xGame2D
 		{
 			Console::Error("texture cannot be null!");
 		}
-		Rectangle *frame = texture->getFrame();
-		float width = frame ? frame->width : texture->getWidth();
-		float height = frame ? frame->height : texture->getHeight();
-		bool pma = texture->getPremultipliedAlpha();
+		auto frame = texture->getFrame();
+		auto width = frame ? frame->width : texture->getWidth();
+		auto height = frame ? frame->height : texture->getHeight();
+		auto pma = texture->getPremultipliedAlpha();
 		Quad::init(width, height, ColorWhite, pma);
 		vertexData->setTexcoordsAtIndex(1.0f, 0.0f, 1);
 		vertexData->setTexcoordsAtIndex(0.0f, 1.0f, 2);
@@ -79,9 +79,9 @@ namespace xGame2D
 
 	void Image::readjustSize()
 	{
-		Rectangle *frame = texture->getFrame();
-		float width = frame ? frame->width : texture->getWidth();
-		float height = frame ? frame->height : texture->getHeight();
+		auto frame = texture->getFrame();
+		auto width = frame ? frame->width : texture->getWidth();
+		auto height = frame ? frame->height : texture->getHeight();
 		vertexData->setTexcoordsAtIndex(width, 0.0f, 1);
 		vertexData->setTexcoordsAtIndex(0.0f, height, 2);
 		vertexData->setTexcoordsAtIndex(width, height, 3);

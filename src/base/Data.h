@@ -11,7 +11,7 @@ namespace xGame2D
 	{
 	constructor:
 		Data() : rawData(nullptr), size(0) {}
-		~Data() { if (rawData) { free(rawData); } }
+		virtual ~Data() { if (rawData) { free(rawData); } }
 
 	public:
 		OVERRIDE_DEFAULT_INIT

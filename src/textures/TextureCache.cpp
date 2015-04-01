@@ -14,7 +14,7 @@ namespace xGame2D
 
 	Texture *TextureCache::textureForKey(std::string &key)
 	{
-		Texture *texture = cache[key];
+		auto texture = cache[key];
 		texture->retain();
 		texture->autorelease();
 		return texture;

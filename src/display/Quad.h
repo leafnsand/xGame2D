@@ -11,7 +11,7 @@ namespace xGame2D
 	{
 	constructor:
 		Quad();
-		~Quad();
+		virtual ~Quad();
 
 	public:
 		virtual bool init() override;

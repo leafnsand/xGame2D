@@ -51,7 +51,7 @@ namespace xGame2D
 		GLenum glTexFormat;
 		GLuint glTexName;
 		int32_t bitsPerPixel;
-		bool compressed = false;
+		auto compressed = false;
 		switch (properties.format)
 		{
 			default:
@@ -117,12 +117,12 @@ namespace xGame2D
 		glBindTexture(GL_TEXTURE_2D, glTexName);
 		if (!compressed)
 		{
-			int32_t levelWidth = properties.width;
-			int32_t levelHeight = properties.height;
-			uint8_t *levelData = (uint8_t *)imageData;
-			for (int32_t level = 0; level <= properties.numMipmaps; level++)
+			auto levelWidth = properties.width;
+			auto levelHeight = properties.height;
+			auto levelData = static_cast<const uint8_t *>(imageData);
+			for (auto level = 0; level <= properties.numMipmaps; level++)
 			{
-				int32_t size = levelWidth * levelHeight * bitsPerPixel / 8;
+				auto size = levelWidth * levelHeight * bitsPerPixel / 8;
 				glTexImage2D(GL_TEXTURE_2D, level, glTexFormat, levelWidth, levelHeight, 0, glTexFormat, glTexType, levelData);
 				levelData += size;
 				levelWidth /= 2;
@@ -135,12 +135,12 @@ namespace xGame2D
 		}
 		else
 		{
-			int32_t levelWidth = properties.width;
-			int32_t levelHeight = properties.height;
-			unsigned char *levelData = (unsigned char *)imageData;
-			for (int32_t level = 0; level <= properties.numMipmaps; level++)
+			auto levelWidth = properties.width;
+			auto levelHeight = properties.height;
+			auto levelData = static_cast<const unsigned char *>(imageData);
+			for (auto level = 0; level <= properties.numMipmaps; level++)
 			{
-				int32_t size = levelWidth * levelHeight * bitsPerPixel / 8;
+				auto size = levelWidth * levelHeight * bitsPerPixel / 8;
 				if (size < 32)
 				{
 					size = 32;
@@ -152,7 +152,7 @@ namespace xGame2D
 			}
 		}
 		glBindTexture(GL_TEXTURE_2D, 0);
-		bool containsMipmaps = properties.numMipmaps > 0 || (properties.generateMipmaps && !compressed);
+		auto containsMipmaps = properties.numMipmaps > 0 || (properties.generateMipmaps && !compressed);
 		return init(glTexName, properties.format, static_cast<float>(properties.width), static_cast<float>(properties.height)
 			, containsMipmaps, properties.scale, properties.premultipliedAlpha);
 	}

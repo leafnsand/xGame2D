@@ -19,7 +19,7 @@ namespace xGame2D
 	{
 	constructor:
 		DisplayObject();
-		~DisplayObject();
+		virtual ~DisplayObject();
 
 	public:
 		virtual void render(RenderSupport *support) = 0;

@@ -104,7 +104,7 @@ namespace xGame2D
         }
         else
         {
-            Matrix *transformationMatrix = transformationMatrixToSpace(targetSpace);
+			auto transformationMatrix = transformationMatrixToSpace(targetSpace);
             return vertexData->boundsAfterTransformationOfVertices(transformationMatrix, 0, 4);
         }
     }

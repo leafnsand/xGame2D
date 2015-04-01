@@ -13,7 +13,7 @@ namespace xGame2D
 	{
 	constructor:
 		TextureCache();
-		~TextureCache();
+		virtual ~TextureCache();
 
 	public:
 		Texture *textureForKey(std::string &key);

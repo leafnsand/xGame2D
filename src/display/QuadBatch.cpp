@@ -89,7 +89,7 @@ namespace xGame2D {
             setBlendMode(blendMode);
             vertexData->setPremultipliedAlpha(premultipliedAlpha, false);
         }
-        int32_t vertexID = numQuads * 4;
+		auto vertexID = numQuads * 4;
         quad->copyVertexDataTo(vertexData, vertexID);
         vertexData->transformVerticesWithMatrix(matrix, vertexID, 4);
         if (alpha != 1.0f)
@@ -121,9 +121,9 @@ namespace xGame2D {
 
 	void QuadBatch::addQuadBatch(QuadBatch *quadBatch, float alpha, uint32_t blendMode, Matrix *matrix)
 	{
-        int32_t vertexID = numQuads * 4;
-        int32_t numQuadsOfBatch = quadBatch->getNumQuads();
-        int32_t numVertices = numQuads * 4;
+		auto vertexID = numQuads * 4;
+		auto numQuadsOfBatch = quadBatch->getNumQuads();
+		auto numVertices = numQuads * 4;
         if (!matrix) matrix = quadBatch->getTransformationMatrix();
         if (numQuads + numQuadsOfBatch > getCapacity()) setCapacity(numQuads + numQuadsOfBatch);
         if (numQuads == 0)
@@ -181,9 +181,9 @@ namespace xGame2D {
         baseEffect->setAlpha(alpha);
         baseEffect->prepareToDraw();
         BlendMode::applyBlendFactorsForBlendMode(blendMode, premultipliedAlpha);
-        int32_t attribPosition = baseEffect->getAttribPosition();
-        int32_t attribColor = baseEffect->getAttribColor();
-        int32_t attribTexcoord = baseEffect->getAttribTexcoord();
+		auto attribPosition = baseEffect->getAttribPosition();
+		auto attribColor = baseEffect->getAttribColor();
+		auto attribTexcoord = baseEffect->getAttribTexcoord();
         glEnableVertexAttribArray(attribPosition);
 		if (attribColor != -1)
 		{
@@ -204,7 +204,7 @@ namespace xGame2D {
         {
             glVertexAttribPointer(attribTexcoord, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void *)(offsetof(Vertex, texcoords)));
         }
-        int32_t numIndices = numQuads * 6;
+		auto numIndices = numQuads * 6;
         glDrawElements(GL_TRIANGLES, numIndices, GL_UNSIGNED_SHORT, nullptr);
 	}
     
@@ -220,7 +220,7 @@ namespace xGame2D {
     
     Rectangle *QuadBatch::boundsInSpace(DisplayObject *targetSpace)
     {
-        Matrix *matrix = targetSpace == this ? nullptr : transformationMatrixToSpace(targetSpace);
+		auto matrix = targetSpace == this ? nullptr : transformationMatrixToSpace(targetSpace);
         return vertexData->boundsAfterTransformationOfVertices(matrix, 0, numQuads * 4);
     }
 
@@ -238,11 +238,11 @@ namespace xGame2D {
     
     int32_t QuadBatch::compile(DisplayObject * object, std::vector<QuadBatch *> *quadBatches, int32_t quadBatchID, Matrix *transformationMatrix, float alpha, uint32_t blendMode)
     {
-        bool isRootObject = false;
-        float objectAlpha = object->getAlpha();
-        Quad *quad = dynamic_cast<Quad *>(object);
-        QuadBatch *batch = dynamic_cast<QuadBatch *>(object);
-        DisplayObjectContainer *container = dynamic_cast<DisplayObjectContainer *>(object);
+		auto isRootObject = false;
+		auto objectAlpha = object->getAlpha();
+		auto quad = dynamic_cast<Quad *>(object);
+		auto batch = dynamic_cast<QuadBatch *>(object);
+		auto container = dynamic_cast<DisplayObjectContainer *>(object);
         if (quadBatchID == -1)
         {
             isRootObject = true;
@@ -260,13 +260,13 @@ namespace xGame2D {
         }
         if (container)
         {
-			Matrix *childMatrix = Object::create<Matrix>();
-            std::vector<DisplayObject *> children = container->getChildren();
+			auto childMatrix = Object::create<Matrix>();
+			auto children = container->getChildren();
 			for (auto child : children)
             {
                 if (child->hasVisibleArea())
                 {
-                    uint32_t childBlendMode = child->getBlendMode();
+					auto childBlendMode = child->getBlendMode();
                     if (childBlendMode == BlendModeAuto) childBlendMode = blendMode;
                     childMatrix->clone(transformationMatrix);
                     childMatrix->prependMatrix(child->getTransformationMatrix());
@@ -276,15 +276,15 @@ namespace xGame2D {
         }
         else if (quad || batch)
         {
-            Texture *texture = quad ? quad->getTexture() : batch->getTexture();
-            bool tinted = quad ? quad->getTinted() : batch->getTinted();
-            bool pma = quad ? quad->getPremultipliedAlpha() : batch->getPremultipliedAlpha();
-            int32_t numQuad = batch ? batch->getNumQuads() : 1;
-            QuadBatch *currentBatch = quadBatches->at(quadBatchID);
+			auto texture = quad ? quad->getTexture() : batch->getTexture();
+			auto tinted = quad ? quad->getTinted() : batch->getTinted();
+			auto pma = quad ? quad->getPremultipliedAlpha() : batch->getPremultipliedAlpha();
+			auto numQuad = batch ? batch->getNumQuads() : 1;
+			auto currentBatch = quadBatches->at(quadBatchID);
             if (currentBatch->isStateChangeWithTinted(tinted, texture, alpha * objectAlpha, pma, blendMode, numQuad))
             {
                 quadBatchID++;
-                if ((int32_t)quadBatches->size() <= quadBatchID)
+                if (static_cast<int32_t>(quadBatches->size()) <= quadBatchID)
                 {
 					quadBatches->push_back(Object::generate<QuadBatch>());
                 }
@@ -306,8 +306,8 @@ namespace xGame2D {
         }
         if (isRootObject)
         {
-            for (int32_t i = (int32_t)quadBatches->size() - 1; i > quadBatchID; i--) {
-				QuadBatch *pop = quadBatches->at(i);
+			for (auto i = static_cast<int32_t>(quadBatches->size()) - 1; i > quadBatchID; i--) {
+				auto pop = quadBatches->at(i);
 				quadBatches->pop_back();
 				pop->release();
             }
@@ -347,19 +347,19 @@ namespace xGame2D {
             Console::Error("capacity must not be zero");
         }
         
-        int32_t oldCapacity = getCapacity();
-        int32_t numVertices = value * 4;
-        int32_t numIndices  = value * 6;
+		auto oldCapacity = getCapacity();
+		auto numVertices = value * 4;
+		auto numIndices = value * 6;
         vertexData->setNumVertices(numVertices);
         if (!indexData)
         {
-            indexData = (unsigned short *)malloc(sizeof(unsigned short) * numIndices);
+			indexData = static_cast<unsigned short *>(malloc(sizeof(unsigned short) * numIndices));
         }
         else
         {
-            indexData = (unsigned short *)realloc(indexData, sizeof(unsigned short) * numIndices);
+			indexData = static_cast<unsigned short *>(realloc(indexData, sizeof(unsigned short) * numIndices));
         }
-        for (int32_t i = oldCapacity; i < value; i++)
+		for (auto i = oldCapacity; i < value; i++)
         {
             indexData[i*6  ] = i*4;
             indexData[i*6+1] = i*4 + 1;
@@ -374,15 +374,15 @@ namespace xGame2D {
     
     void QuadBatch::expand()
     {
-        int32_t oldCapacity = getCapacity();
+		auto oldCapacity = getCapacity();
         setCapacity(oldCapacity < 8 ? 16 : oldCapacity * 2);
     }
     
     void QuadBatch::createBuffers()
     {
         destroyBuffers();
-        int32_t numVertices = vertexData->getNumVertices();
-        int32_t numIndices = numVertices / 4 * 6;
+		auto numVertices = vertexData->getNumVertices();
+		auto numIndices = numVertices / 4 * 6;
         if (numVertices == 0) return;
         glGenBuffers(1, &vertexBufferName);
         glGenBuffers(1, &indexBufferName);

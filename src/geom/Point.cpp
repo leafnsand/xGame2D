@@ -70,7 +70,7 @@ namespace xGame2D
 		auto vecLengthSquared = lengthSquared();
 		if (vecLengthSquared <= maxLengthSquared)
 		{
-			Point *value = copy();
+			auto value = copy();
 			value->autorelease();
 			return value;
 		}

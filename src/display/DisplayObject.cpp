@@ -48,7 +48,7 @@ namespace xGame2D
 
 	void DisplayObject::alignPivot(HAlign hAlign, VAlign vAlign)
 	{
-		Rectangle *bounds = boundsInSpace(this);
+		auto bounds = boundsInSpace(this);
 		orientationChanges = true;
 		switch (hAlign)
 		{
@@ -90,14 +90,14 @@ namespace xGame2D
 		}
 		else if (targetSpace == parent || (!targetSpace && !parent))
 		{
-			Matrix *value = getTransformationMatrix()->copy();
+			auto value = getTransformationMatrix()->copy();
 			value->autorelease();
 			return value;
 		}
 		else if (!targetSpace || targetSpace == getBase())
 		{
-			Matrix *selfMatrix = Object::create<Matrix>();
-			DisplayObject *currentObject = this;
+			auto selfMatrix = Object::create<Matrix>();
+			auto currentObject = this;
 			while (currentObject != targetSpace)
 			{
 				selfMatrix->appendMatrix(currentObject->getTransformationMatrix());
@@ -107,15 +107,15 @@ namespace xGame2D
 		}
 		else if (targetSpace->parent == this)
 		{
-			Matrix *targetMatrix = targetSpace->getTransformationMatrix()->copy();
+			auto targetMatrix = targetSpace->getTransformationMatrix()->copy();
 			targetSpace->autorelease();
 			targetMatrix->invert();
 			return targetMatrix;
 		}
 		static DisplayObject *ancestors[MAX_DISPLAY_TREE_DEPTH];
-		int count = 0;
+		auto count = 0;
 		DisplayObject *commonParent = nullptr;
-		DisplayObject *currentObject = this;
+		auto currentObject = this;
 		while (currentObject && count < MAX_DISPLAY_TREE_DEPTH)
 		{
 			ancestors[count++] = currentObject;
@@ -124,7 +124,7 @@ namespace xGame2D
 		currentObject = targetSpace;
 		while (currentObject && !commonParent)
 		{
-			for (int i = 0; i < count; i++)
+			for (auto i = 0; i < count; i++)
 			{
 				if (currentObject == ancestors[i])
 				{
@@ -136,14 +136,14 @@ namespace xGame2D
 		}
 		if (!commonParent)
 			Console::Error("Object not connected to target");
-		Matrix *selfMatrix = Object::create<Matrix>();
+		auto selfMatrix = Object::create<Matrix>();
 		currentObject = this;
 		while (currentObject != commonParent)
 		{
 			selfMatrix->appendMatrix(currentObject->getTransformationMatrix());
 			currentObject = currentObject->parent;
 		}
-		Matrix *targetMatrix = Object::create<Matrix>();
+		auto targetMatrix = Object::create<Matrix>();
 		currentObject = targetSpace;
 		while (currentObject && currentObject != commonParent)
 		{
@@ -157,13 +157,13 @@ namespace xGame2D
     
 	Point *DisplayObject::localToGlobal(Point *localPoint)
 	{
-		Matrix *matrix = transformationMatrixToSpace(getBase());
+		auto matrix = transformationMatrixToSpace(getBase());
 		return matrix->transform(localPoint);
 	}
 
 	Point *DisplayObject::globalToLocal(Point *globalPoint)
 	{
-		Matrix *matrix = transformationMatrixToSpace(getBase());
+		auto matrix = transformationMatrixToSpace(getBase());
 		matrix->invert();
 		return matrix->transform(globalPoint);
 	}
@@ -388,7 +388,7 @@ namespace xGame2D
 
 	DisplayObject *DisplayObject::getRoot()
 	{
-		auto *current = this;
+		auto current = this;
 		while (current->parent)
 		{
 			if (dynamic_cast<Stage *>(current->parent)) return current;
@@ -399,7 +399,7 @@ namespace xGame2D
 
 	DisplayObject *DisplayObject::getBase()
 	{
-		auto *current = this;
+		auto current = this;
 		while (current->parent) current = current->parent;
 		return current;
 	}
@@ -452,7 +452,7 @@ namespace xGame2D
 
 	void DisplayObject::setTransformationMatrix(Matrix *matrix)
 	{
-		static const float PI_Q = PI / 4.0f;
+		static const auto PI_Q = PI / 4.0f;
 		orientationChanges = false;
 		transformationMatrix->clone(matrix);
 		pivotX = 0.0f;

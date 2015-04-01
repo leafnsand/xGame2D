@@ -11,7 +11,7 @@ namespace xGame2D
 	{
 	constructor:
 		Point();
-		~Point();
+		virtual ~Point();
 
 	public:
 		OVERRIDE_DEFAULT_INIT

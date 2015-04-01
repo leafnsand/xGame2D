@@ -130,7 +130,7 @@ namespace xGame2D
 	{
 		if (index < 0 || index >= numVertices)
 			Console::Error("Invalid vertex index");
-		Position position = vertices[index].position;
+		auto position = vertices[index].position;
 		return Object::create<Point>(position.x, position.y);
 	}
 
@@ -152,7 +152,7 @@ namespace xGame2D
 	{
 		if (index < 0 || index >= numVertices)
 			Console::Error("Invalid vertex index");
-		Position texcoords = vertices[index].texcoords;
+		auto texcoords = vertices[index].texcoords;
 		return Object::create<Point>(texcoords.x, texcoords.y);
 	}
 
@@ -215,7 +215,7 @@ namespace xGame2D
 
 	void VertexData::setAlphaAtIndex(float alpha, int32_t index)
 	{
-		uint32_t color = colorAtIndex(index);
+		auto color = colorAtIndex(index);
 		setColorAtIndex(color, alpha, index);
 	}
 
@@ -235,12 +235,12 @@ namespace xGame2D
 		if (index < 0 || index >= numVertices)
 			Console::Error("Invalid vertex index");
 		if (scale == 1.0f) return;
-		uint8_t minAlpha = premultipliedAlpha ? (uint8_t)(MIN_ALPHA * 255.0f) : 0;
+		uint8_t minAlpha = premultipliedAlpha ? static_cast<uint8_t>(MIN_ALPHA * 255.0f) : 0;
 		for (auto i = index; i < index + count; i++)
 		{
-			auto *vertex = &vertices[i];
+			auto vertex = &vertices[i];
 			auto vertexColor = vertex->color;
-			uint8_t newAlpha = CLAMP(static_cast<uint8_t>(vertexColor.a * scale), minAlpha, (uint8_t)255);
+			auto newAlpha = CLAMP(static_cast<uint8_t>(vertexColor.a * scale), minAlpha, static_cast<uint8_t>(255));
 			if (premultipliedAlpha)
 			{
 				vertexColor = unmultiplyAlpha(vertexColor);
@@ -280,7 +280,7 @@ namespace xGame2D
 		if (!matrix) return;
 		for (auto i = index, end = index + count; i < end; i++)
 		{
-			Position pos = vertices[i].position;
+			auto pos = vertices[i].position;
 			vertices[i].position.x = matrix->a * pos.x + matrix->c * pos.y + matrix->tx;
 			vertices[i].position.y = matrix->b * pos.x + matrix->d * pos.y + matrix->ty;
 		}
@@ -307,8 +307,8 @@ namespace xGame2D
 		{
 			for (auto i = index; i < endIndex; i++)
 			{
-				Position position = vertices[i].position;
-				Point *transformedPoint = matrix->transform(position.x, position.y);
+				auto position = vertices[i].position;
+				auto transformedPoint = matrix->transform(position.x, position.y);
 				auto tfX = transformedPoint->x;
 				auto tfY = transformedPoint->y;
 				minX = MIN(minX, tfX);
@@ -321,7 +321,7 @@ namespace xGame2D
 		{
 			for (auto i = index; i < endIndex; i++)
 			{
-				Position position = vertices[i].position;
+				auto position = vertices[i].position;
 				minX = MIN(minX, position.x);
 				maxX = MAX(maxX, position.x);
 				minY = MIN(minY, position.y);

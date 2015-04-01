@@ -14,7 +14,7 @@ namespace xGame2D {
     {
     constructor:
         QuadBatch();
-        ~QuadBatch();
+		virtual ~QuadBatch();
 
 	public:
 		virtual bool init() override;

@@ -12,7 +12,7 @@ namespace xGame2D
 	{
 	constructor:
 		Rectangle();
-		~Rectangle();
+		virtual ~Rectangle();
 
 	public:
 		OVERRIDE_DEFAULT_INIT

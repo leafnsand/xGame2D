@@ -37,7 +37,7 @@ namespace xGame2D
 	{
 	constructor:
 		VertexData();
-		~VertexData();
+		virtual ~VertexData();
 
 	public:
 		OVERRIDE_DEFAULT_INIT

@@ -12,7 +12,7 @@ namespace xGame2D
 	{
 	protected:
 		AutoreleasePool();
-		~AutoreleasePool();
+		virtual ~AutoreleasePool();
 		void destroy() { if (instance) delete instance; }
 
 	public:

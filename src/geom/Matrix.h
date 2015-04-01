@@ -13,7 +13,7 @@ namespace xGame2D
 	{
 	constructor:
 		Matrix();
-		~Matrix();
+		virtual ~Matrix();
 
 	public:
 		OVERRIDE_DEFAULT_INIT

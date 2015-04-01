@@ -14,7 +14,7 @@ namespace xGame2D
 	{
 	constructor:
         BaseEffect();
-        ~BaseEffect();
+		virtual ~BaseEffect();
 
 	public:
 		void prepareToDraw();

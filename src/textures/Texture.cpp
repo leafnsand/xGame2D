@@ -19,8 +19,8 @@ namespace xGame2D
 
 	static void image_png_read_callback(png_structp png_ptr, png_bytep data, png_size_t length)
 	{
-		internal_image_source *isource = (internal_image_source *)png_get_io_ptr(png_ptr);
-		if ((size_t)(isource->offset + length) <= isource->size)
+		auto isource = static_cast<internal_image_source *>(png_get_io_ptr(png_ptr));
+		if (static_cast<size_t>(isource->offset + length) <= isource->size)
 		{
 			memcpy(data, isource->data + isource->offset, length);
 			isource->offset += length;
@@ -33,8 +33,8 @@ namespace xGame2D
 	
 	Texture *Texture::create(float width, float height)
 	{
-		size_t size = (int32_t)width * (int32_t)height * 4;
-		void *data = malloc(size);
+		size_t size = static_cast<int32_t>(width) * static_cast<int32_t>(height) * 4;
+		auto data = malloc(size);
 		memset(data, 0, size);
 		return create(width, height, Object::create<Data>(data, size), TextureFormatRGBA);
 	}
@@ -53,8 +53,8 @@ namespace xGame2D
 	Texture *Texture::create(float width, float height, Data *data, bool mipmaps, float scale, TextureFormat format)
 	{
 		/*release();*/
-		auto legalWidth = (int32_t)width;// Utils::nextPowerOfTwo(static_cast<int32_t>(width * scale));
-		auto legalHeight = (int32_t)height;// Utils::nextPowerOfTwo(static_cast<int32_t>(height * scale));
+		auto legalWidth = static_cast<int32_t>(width);// Utils::nextPowerOfTwo(static_cast<int32_t>(width * scale));
+		auto legalHeight = static_cast<int32_t>(height);// Utils::nextPowerOfTwo(static_cast<int32_t>(height * scale));
 		TextureProperties properties = {
 			format,
 			scale,
@@ -64,8 +64,8 @@ namespace xGame2D
 			mipmaps,
 			false
 		};
-		GLTexture *glTexture = Object::create<GLTexture>(data->getBuffer(), properties);
-		Rectangle *region = Object::create<Rectangle>(0.0f, 0.0f, width, height);
+		auto glTexture = Object::create<GLTexture>(data->getBuffer(), properties);
+		auto region = Object::create<Rectangle>(0.0f, 0.0f, width, height);
 		return create(region, glTexture);
 	}
 
@@ -76,18 +76,18 @@ namespace xGame2D
 
 	Texture *Texture::create(std::string &path, bool mipmaps)
 	{
-		float width = 0.0f, height = 0.0f;
-		TextureFormat format = TextureFormatRGBA;
+		auto width = 0.0f, height = 0.0f;
+		auto format = TextureFormatRGBA;
 		size_t size = 0;
 		void *buffer = nullptr;
 
-		Data *data = Utils::readFile(path);
+		auto data = Utils::readFile(path);
 		if (data == nullptr)
 		{
 			Console::Error("file not found.\n", path.c_str());
 		}
 		internal_image_source source;
-		source.data = (uint8_t *)data->getBuffer();
+		source.data = static_cast<uint8_t *>(data->getBuffer());
 		source.size = data->getSize();
 		source.offset = 0;
 		if (png_sig_cmp(source.data, 0, 8))
@@ -95,30 +95,30 @@ namespace xGame2D
 			Console::Log("file(%s) is not a png image.\n", path.c_str());
 			return nullptr;
 		}
-		png_structp png_ptr = png_create_read_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
-		if (png_ptr == NULL)
+		auto png_ptr = png_create_read_struct(PNG_LIBPNG_VER_STRING, nullptr, nullptr, nullptr);
+		if (png_ptr == nullptr)
 		{
 			Console::Log("create png struct error.\n");
 			return nullptr;
 		}
-		png_infop info_ptr = png_create_info_struct(png_ptr);
-		if (info_ptr == NULL)
+		auto info_ptr = png_create_info_struct(png_ptr);
+		if (info_ptr == nullptr)
 		{
 			Console::Log("create png info error.\n");
-			png_destroy_read_struct(&png_ptr, NULL, NULL);
+			png_destroy_read_struct(&png_ptr, nullptr, nullptr);
 			return nullptr;
 		}
 		if (setjmp(png_jmpbuf(png_ptr)))
 		{
 			Console::Log("set png jump buffer error.\n");
-			png_destroy_read_struct(&png_ptr, &info_ptr, NULL);
+			png_destroy_read_struct(&png_ptr, &info_ptr, nullptr);
 			return nullptr;
 		}
 		png_set_read_fn(png_ptr, &source, image_png_read_callback);
 		png_read_info(png_ptr, info_ptr);
-		width = (float)png_get_image_width(png_ptr, info_ptr);
-		height = (float)png_get_image_height(png_ptr, info_ptr);
-		png_byte bit_depth = png_get_bit_depth(png_ptr, info_ptr);
+		width = static_cast<float>(png_get_image_width(png_ptr, info_ptr));
+		height = static_cast<float>(png_get_image_height(png_ptr, info_ptr));
+		auto bit_depth = png_get_bit_depth(png_ptr, info_ptr);
 		png_uint_32 color_type = png_get_color_type(png_ptr, info_ptr);
 		if (color_type == PNG_COLOR_TYPE_PALETTE)
 		{
@@ -163,18 +163,18 @@ namespace xGame2D
 				break;
 		}
 		png_size_t rowbytes;
-		png_bytep *row_pointers = (png_bytep *)malloc(sizeof(png_bytep) * (int32_t)height);
+		auto row_pointers = static_cast<png_bytep *>(malloc(sizeof(png_bytep) * static_cast<int32_t>(height)));
 		rowbytes = png_get_rowbytes(png_ptr, info_ptr);
-		size = rowbytes * (int32_t)height;
+		size = rowbytes * static_cast<int32_t>(height);
 		buffer = malloc(size);
-		uint8_t *image_data = (uint8_t *)buffer;
+		auto image_data = static_cast<uint8_t *>(buffer);
 		for (uint32_t i = 0; i < height; i++)
 		{
 			row_pointers[i] = image_data + i * rowbytes;
 		}
 		png_read_image(png_ptr, row_pointers);
-		png_read_end(png_ptr, NULL);
-		png_destroy_read_struct(&png_ptr, &info_ptr, NULL);
+		png_read_end(png_ptr, nullptr);
+		png_destroy_read_struct(&png_ptr, &info_ptr, nullptr);
 		free(row_pointers);
 		return create(width, height, Object::create<Data>(buffer, size), format);
 	}

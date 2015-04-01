@@ -12,7 +12,7 @@ namespace xGame2D
 	{
 	constructor:
 		Program();
-		~Program();
+		virtual ~Program();
 
 	public:
 		OVERRIDE_DEFAULT_INIT

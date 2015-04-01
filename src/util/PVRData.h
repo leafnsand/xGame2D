@@ -12,7 +12,7 @@ namespace xGame2D
 	{
 	constructor:
 		PVRData();
-		~PVRData();
+		virtual ~PVRData();
 
 	public:
 		OVERRIDE_DEFAULT_INIT

@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Label="PropertySheets" />
+  <PropertyGroup Label="UserMacros">
+    <X_GAME2D_WIN_DIR>$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), xGame2D.root))</X_GAME2D_WIN_DIR>
+    <X_GAME2D_ROOT>$(X_GAME2D_WIN_DIR)\..</X_GAME2D_ROOT>
+    <X_GAME2D_LIB>$(X_GAME2D_ROOT)\buid\win</X_GAME2D_LIB>
+    <X_GAME2D_OBJ>$(X_GAME2D_WIN_DIR)\obj\$(ProjectName)</X_GAME2D_OBJ>
+    <X_GAME2D_SRC>$(X_GAME2D_ROOT)\src</X_GAME2D_SRC>
+    <X_GAME2D_THIRD_PARTY>$(X_GAME2D_ROOT)\third-party\win32</X_GAME2D_THIRD_PARTY>
+    <X_GAME2D_THIRD_PARTY_INCLUDE>$(X_GAME2D_THIRD_PARTY)\include</X_GAME2D_THIRD_PARTY_INCLUDE>
+    <X_GAME2D_THIRD_PARTY_LIB>$(X_GAME2D_THIRD_PARTY)\lib</X_GAME2D_THIRD_PARTY_LIB>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OutDir>$(X_GAME2D_LIB)\</OutDir>
+    <IntDir>$(X_GAME2D_OBJ)\</IntDir>
+    <IncludePath>$(X_GAME2D_THIRD_PARTY_INCLUDE);$(X_GAME2D_SRC);$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <LibraryPath>$(X_GAME2D_THIRD_PARTY_LIB);$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);</LibraryPath>
+    <ReferencePath>$(VC_ReferencesPath_x86);</ReferencePath>
+    <LibraryWPath>$(WindowsSDK_MetadataPath);</LibraryWPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>libpng16.lib;glfw3.lib;glew32.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <BuildMacro Include="X_GAME2D_WIN_DIR">
+      <Value>$(X_GAME2D_WIN_DIR)</Value>
+    </BuildMacro>
+    <BuildMacro Include="X_GAME2D_ROOT">
+      <Value>$(X_GAME2D_ROOT)</Value>
+    </BuildMacro>
+    <BuildMacro Include="X_GAME2D_LIB">
+      <Value>$(X_GAME2D_LIB)</Value>
+    </BuildMacro>
+    <BuildMacro Include="X_GAME2D_OBJ">
+      <Value>$(X_GAME2D_OBJ)</Value>
+    </BuildMacro>
+    <BuildMacro Include="X_GAME2D_SRC">
+      <Value>$(X_GAME2D_SRC)</Value>
+    </BuildMacro>
+    <BuildMacro Include="X_GAME2D_THIRD_PARTY">
+      <Value>$(X_GAME2D_THIRD_PARTY)</Value>
+    </BuildMacro>
+    <BuildMacro Include="X_GAME2D_THIRD_PARTY_INCLUDE">
+      <Value>$(X_GAME2D_THIRD_PARTY_INCLUDE)</Value>
+    </BuildMacro>
+    <BuildMacro Include="X_GAME2D_THIRD_PARTY_LIB">
+      <Value>$(X_GAME2D_THIRD_PARTY_LIB)</Value>
+    </BuildMacro>
+  </ItemGroup>
+</Project>

@@ -106,6 +106,9 @@
     <Filter Include="src\render">
       <UniqueIdentifier>{28632b76-0a13-4dbc-ba73-dd9745199f4c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\scheduler">
+      <UniqueIdentifier>{4f9808c9-eaba-418a-a5d3-be6f0dd71185}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\base\Object.h">
@@ -209,6 +212,12 @@
     </ClInclude>
     <ClInclude Include="..\..\src\base\AutoreleasePool.h">
       <Filter>src\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\scheduler\Scheduler.h">
+      <Filter>src\scheduler</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\scheduler\ScheduleListNode.h">
+      <Filter>src\scheduler</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

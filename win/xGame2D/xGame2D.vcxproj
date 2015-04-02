@@ -65,6 +65,8 @@
     <ClInclude Include="..\..\src\render\ProgramCache.h" />
     <ClInclude Include="..\..\src\render\RenderState.h" />
     <ClInclude Include="..\..\src\render\RenderSupport.h" />
+    <ClInclude Include="..\..\src\scheduler\ScheduleListNode.h" />
+    <ClInclude Include="..\..\src\scheduler\Scheduler.h" />
     <ClInclude Include="..\..\src\textures\GLTexture.h" />
     <ClInclude Include="..\..\src\textures\SubTexture.h" />
     <ClInclude Include="..\..\src\textures\Texture.h" />

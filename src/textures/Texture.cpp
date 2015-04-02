@@ -52,7 +52,6 @@ namespace xGame2D
 
 	Texture *Texture::create(float width, float height, Data *data, bool mipmaps, float scale, TextureFormat format)
 	{
-		/*release();*/
 		auto legalWidth = static_cast<int32_t>(width);// Utils::nextPowerOfTwo(static_cast<int32_t>(width * scale));
 		auto legalHeight = static_cast<int32_t>(height);// Utils::nextPowerOfTwo(static_cast<int32_t>(height * scale));
 		TextureProperties properties = {
@@ -82,35 +81,32 @@ namespace xGame2D
 		void *buffer = nullptr;
 
 		auto data = Utils::readFile(path);
-		if (data == nullptr)
-		{
-			Console::Error("file not found.\n", path.c_str());
-		}
+		X_ASSERT(data, "file not found.");
 		internal_image_source source;
 		source.data = static_cast<uint8_t *>(data->getBuffer());
 		source.size = data->getSize();
 		source.offset = 0;
 		if (png_sig_cmp(source.data, 0, 8))
 		{
-			Console::Log("file(%s) is not a png image.\n", path.c_str());
+			Console::Log("file(%s) is not a png image.", path.c_str());
 			return nullptr;
 		}
 		auto png_ptr = png_create_read_struct(PNG_LIBPNG_VER_STRING, nullptr, nullptr, nullptr);
 		if (png_ptr == nullptr)
 		{
-			Console::Log("create png struct error.\n");
+			Console::Log("create png struct error.");
 			return nullptr;
 		}
 		auto info_ptr = png_create_info_struct(png_ptr);
 		if (info_ptr == nullptr)
 		{
-			Console::Log("create png info error.\n");
+			Console::Log("create png info error.");
 			png_destroy_read_struct(&png_ptr, nullptr, nullptr);
 			return nullptr;
 		}
 		if (setjmp(png_jmpbuf(png_ptr)))
 		{
-			Console::Log("set png jump buffer error.\n");
+			Console::Log("set png jump buffer error.");
 			png_destroy_read_struct(&png_ptr, &info_ptr, nullptr);
 			return nullptr;
 		}
@@ -159,7 +155,7 @@ namespace xGame2D
 				format = TextureFormatRGBA;
 				break;
 			default:
-				Console::Log("invalid png color type.\n");
+				Console::Log("invalid png color type.");
 				break;
 		}
 		png_size_t rowbytes;
@@ -193,7 +189,7 @@ namespace xGame2D
 		}
 		else
 		{
-			texture->retain();
+			texture->autorelease();
 			return texture;
 		}
 	}

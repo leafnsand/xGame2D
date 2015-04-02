@@ -2,11 +2,22 @@
 #define __X_OBJECT_H__
 
 #include "base/AutoreleasePool.h"
+#include "util/Console.h"
 #include <stdint.h>
 #include <utility>
 
 #define constructor friend class Object;protected
 #define OVERRIDE_DEFAULT_INIT virtual inline bool init() { return true; }
+#if DEBUG || _DEBUG
+#	define X_ASSERT(condition, message) do { \
+		if (!(condition)) \
+		{ \
+			Console::Error(message); \
+		} \
+	} while (0)
+#else
+#	define X_ASSERT(condition, message)
+#endif
 
 namespace xGame2D
 {
@@ -43,7 +54,7 @@ namespace xGame2D
 			return ref;
 		}
 
-		template <typename T, typename ...Args>
+		template <class T, typename ...Args>
 		static inline T *generate(Args&& ...args)
 		{
 			T *v = new T();
@@ -54,7 +65,7 @@ namespace xGame2D
 			return nullptr;
 		}
 
-		template <typename T, typename ...Args>
+		template <class T, typename ...Args>
 		static inline T *create(Args&& ...args)
 		{
 			T *v = new T();

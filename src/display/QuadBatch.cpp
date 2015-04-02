@@ -170,10 +170,7 @@ namespace xGame2D {
 	{
         if (!numQuads) return;
         if (syncRequired) syncBuffers();
-        if (blendMode == BlendModeAuto)
-        {
-            Console::Error("cannot render object with blend mode AUTO");
-        }
+        X_ASSERT(blendMode != BlendModeAuto, "cannot render object with blend mode AUTO");
         baseEffect->setTexture(texture);
         baseEffect->setPremultipliedAlpha(premultipliedAlpha);
         baseEffect->setMvpMatrix(matrix);
@@ -342,11 +339,7 @@ namespace xGame2D {
     
     void QuadBatch::setCapacity(int32_t value)
     {
-        if(value <= 0)
-        {
-            Console::Error("capacity must not be zero");
-        }
-        
+        X_ASSERT(value > 0, "capacity must not be zero");
 		auto oldCapacity = getCapacity();
 		auto numVertices = value * 4;
 		auto numIndices = value * 6;
@@ -386,10 +379,7 @@ namespace xGame2D {
         if (numVertices == 0) return;
         glGenBuffers(1, &vertexBufferName);
         glGenBuffers(1, &indexBufferName);
-        if (!vertexBufferName || !indexBufferName)
-        {
-            Console::Error("could not create vertex buffers");
-        }
+        X_ASSERT(vertexBufferName && indexBufferName, "could not create vertex buffers");
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBufferName);
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned short) * numIndices, indexData, GL_STATIC_DRAW);
         syncRequired = true;

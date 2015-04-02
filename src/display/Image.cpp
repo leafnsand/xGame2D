@@ -26,10 +26,7 @@ namespace xGame2D
 
 	bool Image::init(Texture *texture)
 	{
-		if (!texture)
-		{
-			Console::Error("texture cannot be null!");
-		}
+		X_ASSERT(texture, "texture cannot be null!");
 		auto frame = texture->getFrame();
 		auto width = frame ? frame->width : texture->getWidth();
 		auto height = frame ? frame->height : texture->getHeight();
@@ -111,11 +108,8 @@ namespace xGame2D
 
 	void Image::setTexture(Texture *value)
 	{
-		if (value == nullptr)
-		{
-			Console::Error("texture cannot be null!");
-		}
-		else if (value != texture)
+		X_ASSERT(value, "texture cannot be null!");
+		if (value != texture)
 		{
 			texture->release();
 			texture = value;

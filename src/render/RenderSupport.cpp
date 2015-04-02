@@ -158,10 +158,7 @@ namespace xGame2D
 
 	void RenderSupport::popState()
 	{
-		if (stateStackIndex == 0)
-		{
-			Console::Error("The state stack must not be empty");
-		}
+		X_ASSERT(stateStackIndex != 0, "The state stack must not be empty");
 		stateStackTop = stateStack[--stateStackIndex];
 	}
 

@@ -92,24 +92,20 @@ namespace xGame2D
 
 	void VertexData::copyTo(VertexData *target, int32_t targetIndex, int32_t count)
 	{
-		if (count < 0 || count > numVertices)
-			Console::Error("Invalid vertex count");
-		if (targetIndex + count > target->numVertices)
-			Console::Error("Target too small");
+		X_ASSERT(count >= 0 && count <= numVertices, "Invalid vertex count");
+		X_ASSERT(targetIndex + count <= target->numVertices, "Target too small");
 		memcpy(&target->vertices[targetIndex], vertices, sizeof(Vertex)* count);
 	}
 
 	Vertex VertexData::vertexAtIndex(int32_t index)
 	{
-		if (index < 0 || index >= numVertices)
-			Console::Error("Invalid vertex index");
+		X_ASSERT(index >= 0 && index < numVertices, "Invalid vertex index");
 		return vertices[index];
 	}
 
 	void VertexData::setVertexAtIndex(Vertex vertex, int32_t index)
 	{
-		if (index < 0 || index >= numVertices)
-			Console::Error("Invalid vertex index");
+		X_ASSERT(index >= 0 && index < numVertices, "Invalid vertex index");
 		vertices[index] = vertex;
 		if (premultipliedAlpha)
 			vertices[index].color = premultiplyAlpha(vertex.color);
@@ -128,52 +124,45 @@ namespace xGame2D
 
 	Point *VertexData::positionAtIndex(int32_t index)
 	{
-		if (index < 0 || index >= numVertices)
-			Console::Error("Invalid vertex index");
+		X_ASSERT(index >= 0 && index < numVertices, "Invalid vertex index");
 		auto position = vertices[index].position;
 		return Object::create<Point>(position.x, position.y);
 	}
 
 	void VertexData::setPositionAtIndex(Point *position, int32_t index)
 	{
-		if (index < 0 || index >= numVertices)
-			Console::Error("Invalid vertex index");
+		X_ASSERT(index >= 0 && index < numVertices, "Invalid vertex index");
 		vertices[index].position = VertexPointMake(position->x, position->y);
 	}
 
 	void VertexData::setPositionAtIndex(float x, float y, int32_t index)
 	{
-		if (index < 0 || index >= numVertices)
-			Console::Error("Invalid vertex index");
+		X_ASSERT(index >= 0 && index < numVertices, "Invalid vertex index");
 		vertices[index].position = VertexPointMake(x, y);
 	}
 
 	Point *VertexData::texcoordsAtIndex(int32_t index)
 	{
-		if (index < 0 || index >= numVertices)
-			Console::Error("Invalid vertex index");
+		X_ASSERT(index >= 0 && index < numVertices, "Invalid vertex index");
 		auto texcoords = vertices[index].texcoords;
 		return Object::create<Point>(texcoords.x, texcoords.y);
 	}
 
 	void VertexData::setTexcoordsAtIndex(Point *texcoords, int32_t index)
 	{
-		if (index < 0 || index >= numVertices)
-			Console::Error("Invalid vertex index");
+		X_ASSERT(index >= 0 && index < numVertices, "Invalid vertex index");
 		vertices[index].texcoords = VertexPointMake(texcoords->x, texcoords->y);
 	}
 
 	void VertexData::setTexcoordsAtIndex(float x, float y, int32_t index)
 	{
-		if (index < 0 || index >= numVertices)
-			Console::Error("Invalid vertex index");
+		X_ASSERT(index >= 0 && index < numVertices, "Invalid vertex index");
 		vertices[index].texcoords = VertexPointMake(x, y);
 	}
 
 	void VertexData::setColorAtIndex(uint32_t color, float alpha, int32_t index)
 	{
-		if (index < 0 || index >= numVertices)
-			Console::Error("Invalid vertex index");
+		X_ASSERT(index >= 0 && index < numVertices, "Invalid vertex index");
 		alpha = CLAMP(alpha, premultipliedAlpha ? MIN_ALPHA : 0.0f, 1.0f);
 		auto vertexColor = VertexColorMakeWithColorAndAlpha(color, alpha);
 		vertices[index].color = premultipliedAlpha ? premultiplyAlpha(vertexColor) : vertexColor;
@@ -199,8 +188,7 @@ namespace xGame2D
 
 	uint32_t VertexData::colorAtIndex(int32_t index)
 	{
-		if (index < 0 || index >= numVertices)
-			Console::Error("Invalid vertex index");
+		X_ASSERT(index > 0 && index < numVertices, "Invalid vertex index");
 		auto vertexColor = vertices[index].color;
 		if (premultipliedAlpha) vertexColor = unmultiplyAlpha(vertexColor);
 		return ColorMake(vertexColor.r, vertexColor.g, vertexColor.b);
@@ -208,8 +196,7 @@ namespace xGame2D
 
 	float VertexData::alphaAtIndex(int32_t index)
 	{
-		if (index < 0 || index >= numVertices)
-			Console::Error("Invalid vertex index");
+		X_ASSERT(index >= 0 && index < numVertices, "Invalid vertex index");
 		return vertices[index].color.a / 255.0f;
 	}
 
@@ -232,8 +219,7 @@ namespace xGame2D
 
 	void VertexData::scaleAlphaOfVertices(float scale, int32_t index, int32_t count)
 	{
-		if (index < 0 || index >= numVertices)
-			Console::Error("Invalid vertex index");
+		X_ASSERT(index >= 0 && index < numVertices, "Invalid vertex index");
 		if (scale == 1.0f) return;
 		uint8_t minAlpha = premultipliedAlpha ? static_cast<uint8_t>(MIN_ALPHA * 255.0f) : 0;
 		for (auto i = index; i < index + count; i++)
@@ -275,8 +261,7 @@ namespace xGame2D
 
 	void VertexData::transformVerticesWithMatrix(Matrix *matrix, int32_t index, int32_t count)
 	{
-		if (index < 0 || index + count >= numVertices)
-			Console::Error("Invalid vertex range");
+		X_ASSERT(index >= 0 && index + count < numVertices, "Invalid vertex range");
 		if (!matrix) return;
 		for (auto i = index, end = index + count; i < end; i++)
 		{
@@ -298,8 +283,7 @@ namespace xGame2D
 
 	Rectangle *VertexData::boundsAfterTransformationOfVertices(Matrix *matrix, int32_t index, int32_t count)
 	{
-		if (index < 0 || index + count > numVertices)
-			Console::Error("Invalid index range");
+		X_ASSERT(index >= 0 && index + count <= numVertices, "Invalid index range");
 		if (!count) return nullptr;
 		auto minX = FLT_MAX, maxX = -FLT_MAX, minY = FLT_MAX, maxY = -FLT_MAX;
 		auto endIndex = index + count;

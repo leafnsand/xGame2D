@@ -30,8 +30,7 @@ namespace xGame2D {
 
 	void DisplayObjectContainer::addChildAt(DisplayObject *child, int32_t index)
 	{
-		if (index < 0 || index > static_cast<int32_t>(children.size()))
-			Console::Error("Invalid child index");
+		X_ASSERT((index >= 0 && index <= static_cast<int32_t>(children.size())) ,"Invalid child index");
 		child->retain();
 		child->removeFromParent();
 		children.insert(children.begin() + MIN(static_cast<int32_t>(children.size()), index), child);
@@ -82,8 +81,7 @@ namespace xGame2D {
 	void DisplayObjectContainer::setIndexOf(int32_t index, DisplayObject *child)
 	{
 		auto currentIndex = childIndex(child);
-		if (currentIndex == -1)
-			Console::Error("Not a child of this container");
+		X_ASSERT(currentIndex != -1, "Not a child of this container");
 		child->retain();
 		children.erase(children.begin() + currentIndex);
 		children.insert(children.begin() + index, child);
@@ -99,8 +97,7 @@ namespace xGame2D {
 
 	void DisplayObjectContainer::removeChildAtIndex(int32_t index)
 	{
-		if (index < 0 || index > static_cast<int32_t>(children.size()))
-			Console::Error("Invalid child index");
+		X_ASSERT((index >= 0 && index <= static_cast<int32_t>(children.size())) ,"Invalid child index");
 		auto child = children[index];
 		child->parent = nullptr;
 		child->release();
@@ -127,8 +124,7 @@ namespace xGame2D {
 	void DisplayObjectContainer::swapChildAtIndex(int32_t index1, int32_t index2)
 	{
 		auto numChildren = static_cast<int32_t>(children.size());
-		if (index1 < 0 || index1 >= numChildren || index2 < 0 || index2 >= numChildren)
-			Console::Error("Invalid child indices");
+		X_ASSERT(index1 >= 0 && index1 < numChildren && index2 >= 0 && index2 < numChildren, "Invalid child indices");
 		auto temp = children[index1];
 		children[index1] = children[index2];
 		children[index2] = temp;

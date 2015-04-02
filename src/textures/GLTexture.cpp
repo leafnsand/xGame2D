@@ -31,9 +31,9 @@ namespace xGame2D
 
 	bool GLTexture::init(uint32_t name, TextureFormat format, float width, float height, bool mipmaps, float scale, bool pma)
 	{
-		if (width <= 0.0f)  Console::Error("invalid width");
-		if (height <= 0.0f) Console::Error("invalid height");
-		if (scale <= 0.0f)  Console::Error("invalid scale");
+		X_ASSERT(width > 0.0f, "invalid width");
+		X_ASSERT(height > 0.0f, "invalid height");
+		X_ASSERT(scale > 0.0f, "invalid scale");
 		this->name = name;
 		this->width = width;
 		this->height = height;

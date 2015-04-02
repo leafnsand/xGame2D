@@ -91,11 +91,7 @@ namespace xGame2D
 	{
 		if (frame)
 		{
-			if (count != 4)
-			{
-				Console::Error("Textures with a frame can only be used on quads");
-				return;
-			}
+			X_ASSERT(count == 4, "Textures with a frame can only be used on quads");
 			auto deltaRight = frame->width + frame->x - width;
 			auto deltaBottom = frame->height + frame->y - height;
 			int32_t step = sizeof(Position) + stride;

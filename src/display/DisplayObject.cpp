@@ -134,8 +134,7 @@ namespace xGame2D
 			}
 			currentObject = currentObject->parent;
 		}
-		if (!commonParent)
-			Console::Error("Object not connected to target");
+		X_ASSERT(commonParent, "Object not connected to target");
 		auto selfMatrix = Object::create<Matrix>();
 		currentObject = this;
 		while (currentObject != commonParent)

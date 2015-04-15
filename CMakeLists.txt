@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.8)
 project(xGame2D)
 if(WIN32)
-    set(CMAKE_CXX_FLAGS "-g -O2 -Wall -std=c++11")
+    set(CMAKE_CXX_FLAGS "-g -Wall -std=c++11")
 else()
     set(CMAKE_CXX_FLAGS "-g -O2 -Wall -fPIC -std=c++11")
 endif()

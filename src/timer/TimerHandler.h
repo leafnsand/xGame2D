@@ -4,6 +4,7 @@
 #include "base/Object.h"
 #include <list>
 #include <map>
+#include <functional>
 
 namespace xGame2D
 {

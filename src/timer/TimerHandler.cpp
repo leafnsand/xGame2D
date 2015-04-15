@@ -22,11 +22,10 @@ namespace xGame2D
     {
         X_ASSERT(target, "target must be non-nullptr");
         X_ASSERT(!key.empty(), "key should not be empty!");
-        if (!allCallbackTimers.find(target))
+        if (allCallbackTimers.find(target) != allCallbackTimers.end())
         {
 
         }
-
     }
 
     void TimerHandler::unregisterCallbackTimer(void *target, std::string &key)

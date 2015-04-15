@@ -2,6 +2,7 @@
 #define __X_UPDATETIMER_H__
 
 #include "timer/Timer.h"
+#include <functional>
 
 namespace xGame2D
 {

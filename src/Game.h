@@ -11,6 +11,7 @@ namespace xGame2D
 	class TextureCache;
 	class Stage;
 	class Context;
+	class TimerHandler;
 
 	class Game : public Object
 	{
@@ -30,6 +31,7 @@ namespace xGame2D
 		TextureCache *textureCache;
 		Stage *stage;
 		Context *context;
+		TimerHandler *timerHandler;
 
 	private:
 		static Game *instance;

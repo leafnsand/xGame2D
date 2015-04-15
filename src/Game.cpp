@@ -3,8 +3,8 @@
 #include "render/ProgramCache.h"
 #include "render/RenderSupport.h"
 #include "render/Context.h"
+#include "timer/TimerHandler.h"
 #include "textures/TextureCache.h"
-#include "util/Console.h"
 
 namespace xGame2D
 {
@@ -30,6 +30,7 @@ namespace xGame2D
 		context = Object::generate<Context>();
 		support = Object::generate<RenderSupport>();
 		stage = Object::generate<Stage>(width, height, color);
+		timerHandler = Object::generate<TimerHandler>();
 		return true;
 	}
 

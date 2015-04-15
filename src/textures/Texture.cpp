@@ -7,6 +7,7 @@
 #include "util/Console.h"
 #include <typeinfo>
 #include <png.h>
+#include <cstring>
 
 namespace xGame2D
 {

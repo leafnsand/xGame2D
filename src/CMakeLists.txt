@@ -15,4 +15,4 @@ set(xGame2D_src Game.cpp
     ${xGame2D_timer_src}
     ${xGame2D_util_src}
 )
-add_library(xGame2D ${xGame2D_src} timer/Timer.cpp timer/Timer.h timer/TimerHandler.cpp timer/UpdateTimer.cpp timer/UpdateTimer.h timer/CallbackTimer.cpp timer/CallbackTimer.h)
+add_executable(xGame2D ${xGame2D_src})

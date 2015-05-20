@@ -6,38 +6,44 @@
 #include <map>
 #include <functional>
 
+#define UPDATE(f) std::bind(&f, this, std::placeholders::_1)
+#define CALLBACK(f) std::bind(&f, this)
+
 namespace xGame2D
 {
-    class UpdateTimer;
-    class UpdateTimerMapNode;
-    class CallbackTimer;
-    class CallbackTimerMapNode;
+	class UpdateTimer;
+	class UpdateTimerMapNode;
+	class CallbackTimerMapNode;
 
-    class TimerHandler : public Object
-    {
-    constructor:
-        TimerHandler();
-        virtual ~TimerHandler();
+	class TimerHandler : public Object
+	{
+	constructor:
+		TimerHandler();
+		virtual ~TimerHandler();
 
-    public:
-        void update(float delta);
-        void registerCallbackTimer(void *target, const std::function<void()> &callback, float interval, uint32_t repeat, float delay, bool paused, std::string &key);
-        void registerUpdateTimer(void *target, const std::function<void(float)> &update, int32_t priority, bool paused);
-        void unregisterCallbackTimer(void *target, std::string &key);
-        void unregisterUpdateTimer(void *target);
-        void unregister(void *target);
-        void unregisterAll();
+	public:
+		void update(float delta);
+		void registerCallbackTimer(void *target, const std::function<void()> &callback, float interval, uint32_t repeat, float delay, bool paused, std::string &key);
+		void registerUpdateTimer(void *target, const std::function<void(float)> &update, int32_t priority, bool paused);
+		void unregisterCallbackTimer(void *target, std::string &key);
+		void unregisterUpdateTimer(void *target);
+		void unregister(void *target);
+		void unregisterAll();
 
-    protected:
-        std::list<UpdateTimer *> negUpdateTimers;
-        std::list<UpdateTimer *> zeroUpdateTimers;
-        std::list<UpdateTimer *> posUpdateTimers;
-        std::map<void *, UpdateTimerMapNode *> allUpdateTimers;
-        std::list<CallbackTimer *> callbackTimers;
-        std::map<void *, CallbackTimerMapNode *> allCallbackTimers;
-        CallbackTimer *currentCallbackTimer;
-        bool currentCallbackTimerSalvaged, updateLock;
-    };
+		int32_t getTotalFrame();
+
+	private:
+		void appendIn(std::list<UpdateTimer *> &list, UpdateTimer *timer);
+
+	protected:
+		std::list<UpdateTimer *> negUpdateTimers;
+		std::list<UpdateTimer *> zeroUpdateTimers;
+		std::list<UpdateTimer *> posUpdateTimers;
+		std::map<void *, UpdateTimerMapNode *> allUpdateTimers;
+		std::map<void *, CallbackTimerMapNode *> allCallbackTimers;
+		bool updateLock;
+		int32_t totalFrame;
+	};
 }
 
 #endif

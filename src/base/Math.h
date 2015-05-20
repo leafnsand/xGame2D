@@ -39,11 +39,11 @@ namespace xGame2D
 	static inline int32_t Sign(int32_t value)
 	{
 		if (value > 0)
-			return  1;
+			return 1;
 		else if (value < 0)
 			return -1;
 		else
-			return  0;
+			return 0;
 	}
 
 	static inline float RadiansToDegrees(float radians)

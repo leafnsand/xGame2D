@@ -4,34 +4,40 @@
 
 namespace xGame2D
 {
-    UpdateTimer::UpdateTimer()
-    : target(nullptr)
-    , update(nullptr)
-    {
-    }
+	UpdateTimer::UpdateTimer():
+		target(nullptr),
+		updateFunction(nullptr),
+		priority(0)
+	{
+	}
 
-    UpdateTimer::~UpdateTimer()
-    {
-    }
+	UpdateTimer::~UpdateTimer()
+	{
+	}
 
-    bool UpdateTimer::init(void *target, const std::function<void(float)> &update, float interval, uint32_t repeat, float delay)
-    {
-        if (Timer::init(interval, repeat, delay))
-        {
-            this->target = target;
-            this->update = update;
-            return true;
-        }
-        return false;
-    }
+	bool UpdateTimer::init(void *target, const std::function<void(float)> &updateFunction, int32_t priority, bool paused)
+	{
+		if (Timer::init(0.0f, UINT32_MAX, 0.0f))
+		{
+			this->target = target;
+			this->updateFunction = updateFunction;
+			this->priority = priority;
+			this->paused = paused;
+			return true;
+		}
+		return false;
+	}
 
-    void UpdateTimer::trigger()
-    {
-        update(elapsed);
-    }
+	void UpdateTimer::trigger()
+	{
+		if (!paused && updateFunction)
+		{
+			updateFunction(elapsed);
+		}
+	}
 
-    void UpdateTimer::cancel()
-    {
-        Game::getInstance()->timerHandler->unregisterUpdateTimer(target);
-    }
+	void UpdateTimer::cancel()
+	{
+		Game::getInstance()->timerHandler->unregisterUpdateTimer(target);
+	}
 }

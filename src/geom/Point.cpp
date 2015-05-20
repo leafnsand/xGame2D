@@ -3,9 +3,9 @@
 
 namespace xGame2D
 {
-	Point::Point()
-		: x(0.0f)
-		, y(0.0f)
+	Point::Point(): 
+		x(0.0f), 
+		y(0.0f)
 	{
 	}
 
@@ -44,7 +44,7 @@ namespace xGame2D
 	{
 		auto sina = sinf(angle);
 		auto cosa = cosf(angle);
-		return Object::create<Point>(x * cosa - y * sina, x *sina + y * cosa);
+		return Object::create<Point>(x * cosa - y * sina, x * sina + y * cosa);
 	}
 
 	Point *Point::normalize()

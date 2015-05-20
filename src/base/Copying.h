@@ -7,7 +7,10 @@ namespace xGame2D
 	{
 	public:
 		virtual Copying *copy() = 0;
-		virtual ~Copying(){};
+
+		virtual ~Copying()
+		{
+		};
 	};
 }
 

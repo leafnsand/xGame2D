@@ -4,38 +4,38 @@
 
 namespace xGame2D
 {
-    CallbackTimer::CallbackTimer()
-    : target(nullptr)
-    , callback(nullptr)
-    {
-    }
+	CallbackTimer::CallbackTimer():
+		target(nullptr),
+		callback(nullptr)
+	{
+	}
 
-    CallbackTimer::~CallbackTimer()
-    {
-    }
+	CallbackTimer::~CallbackTimer()
+	{
+	}
 
-    bool CallbackTimer::init(void *target, std::function<void()> &callback, float interval, uint32_t repeat, float delay, std::string &key)
-    {
-        if (Timer::init(interval, repeat, delay))
-        {
-            this->target = target;
-            this->callback = callback;
-            this->key = key;
-            return true;
-        }
-        return false;
-    }
+	bool CallbackTimer::init(void *target, const std::function<void()> &callback, float interval, uint32_t repeat, float delay, std::string &key)
+	{
+		if (Timer::init(interval, repeat, delay))
+		{
+			this->target = target;
+			this->callback = callback;
+			this->key = key;
+			return true;
+		}
+		return false;
+	}
 
-    void CallbackTimer::trigger()
-    {
-        if (callback)
-        {
-            callback();
-        }
-    }
+	void CallbackTimer::trigger()
+	{
+		if (callback)
+		{
+			callback();
+		}
+	}
 
-    void CallbackTimer::cancel()
-    {
-        Game::getInstance()->timerHandler->unregisterCallbackTimer(target, key);
-    }
+	void CallbackTimer::cancel()
+	{
+		Game::getInstance()->timerHandler->unregisterCallbackTimer(target, key);
+	}
 }

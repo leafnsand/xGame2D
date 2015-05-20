@@ -28,8 +28,8 @@ namespace xGame2D
 
 	void AutoreleasePool::dump()
 	{
-//      Console::Log("Pool size: %d.", cache.size());
- 		for (auto object : cache)
+		//      Console::Log("Pool size: %d.", cache.size());
+		for (auto object : cache)
 		{
 			Console::Log("Object[%s]: %p, reference count: %d.", typeid(*object).name(), object, object->referenceCount());
 		}

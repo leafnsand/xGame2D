@@ -15,6 +15,7 @@ namespace xGame2D
 
 	public:
 		OVERRIDE_DEFAULT_INIT
+
 		bool init(float x, float y);
 
 		static Point *pointWithLengthAndAngle(float length, float angle);

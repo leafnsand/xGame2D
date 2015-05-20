@@ -6,16 +6,17 @@
 #include "geom/Point.h"
 #include "util/Console.h"
 
-namespace xGame2D {
-    DisplayObjectContainer::DisplayObjectContainer()
-		: touchGroup(false)
-    {
-    }
-    
-    DisplayObjectContainer::~DisplayObjectContainer()
-    {
+namespace xGame2D
+{
+	DisplayObjectContainer::DisplayObjectContainer(): 
+		touchGroup(false)
+	{
+	}
+
+	DisplayObjectContainer::~DisplayObjectContainer()
+	{
 		removeAllChildren();
-    }
+	}
 
 	bool DisplayObjectContainer::init()
 	{
@@ -37,7 +38,7 @@ namespace xGame2D {
 		child->parent = this;
 		// dispatch event
 	}
-	
+
 	bool DisplayObjectContainer::containsChild(DisplayObject *child)
 	{
 		while (child)
@@ -68,7 +69,7 @@ namespace xGame2D {
 	int32_t DisplayObjectContainer::childIndex(DisplayObject *child)
 	{
 		auto size = static_cast<int32_t>(children.size());
-		for (auto i = 0; i < size; i++)
+		for (auto i = 0; i < size; ++i)
 		{
 			if (children[i] == child)
 			{
@@ -144,7 +145,7 @@ namespace xGame2D {
 	{
 		removeAllChildren();
 		auto size = static_cast<int32_t>(children.size());
-		for (auto i = 0; i < size; i++)
+		for (auto i = 0; i < size; ++i)
 		{
 			addChild(value[i]);
 		}
@@ -182,41 +183,41 @@ namespace xGame2D {
 			auto transformedPoint = transformationMatrix->transform(x, y);
 			return Object::create<Rectangle>(transformedPoint->x, transformedPoint->y, 0.0f, 0.0f);
 		}
-        else if (numChildren == 1)
-        {
-            return children[0]->boundsInSpace(targetSpace);
-        }
-        else
-        {
-            float minX = FLT_MAX, maxX = -FLT_MAX, minY = FLT_MAX, maxY = -FLT_MAX;
+		else if (numChildren == 1)
+		{
+			return children[0]->boundsInSpace(targetSpace);
+		}
+		else
+		{
+			float minX = FLT_MAX, maxX = -FLT_MAX, minY = FLT_MAX, maxY = -FLT_MAX;
 			for (auto child : children)
 			{
 				auto childBounds = child->boundsInSpace(targetSpace);
-                minX = MIN(minX, childBounds->x);
-                maxX = MAX(maxX, childBounds->x + childBounds->width);
-                minY = MIN(minY, childBounds->y);
-                maxY = MAX(maxY, childBounds->y + childBounds->height);
-            }
+				minX = MIN(minX, childBounds->x);
+				maxX = MAX(maxX, childBounds->x + childBounds->width);
+				minY = MIN(minY, childBounds->y);
+				maxY = MAX(maxY, childBounds->y + childBounds->height);
+			}
 			return Object::create<Rectangle>(minX, minY, maxX - minX, maxY - minY);
-        }
+		}
 	}
-    
+
 	DisplayObject *DisplayObjectContainer::hitTestPoint(Point *localPoint)
-    {
-        if (!getVisible() || !getTouchGroup())
-        {
-            return nullptr;
-        }
+	{
+		if (!getVisible() || !getTouchGroup())
+		{
+			return nullptr;
+		}
 		for (auto child : children)
 		{
 			auto transformationMatrix = transformationMatrixToSpace(child);
 			auto transformedPoint = transformationMatrix->transform(localPoint);
 			auto target = child->hitTestPoint(transformedPoint);
-            if (target)
-            {
-                return touchGroup ? this : target;
-            }
-        }
-        return nullptr;
-    }
+			if (target)
+			{
+				return touchGroup ? this : target;
+			}
+		}
+		return nullptr;
+	}
 }

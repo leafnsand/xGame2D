@@ -13,7 +13,7 @@ namespace xGame2D
 	class BaseEffect : public Object
 	{
 	constructor:
-        BaseEffect();
+		BaseEffect();
 		virtual ~BaseEffect();
 
 	public:

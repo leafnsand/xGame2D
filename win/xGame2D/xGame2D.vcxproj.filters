@@ -83,6 +83,24 @@
     <ClCompile Include="..\..\src\base\AutoreleasePool.cpp">
       <Filter>src\base</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\timer\CallbackTimer.cpp">
+      <Filter>src\timer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\timer\Timer.cpp">
+      <Filter>src\timer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\timer\TimerHandler.cpp">
+      <Filter>src\timer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\timer\UpdateTimer.cpp">
+      <Filter>src\timer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\timer\CallbackTimerMapNode.cpp">
+      <Filter>src\timer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\timer\UpdateTimerMapNode.cpp">
+      <Filter>src\timer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -106,8 +124,8 @@
     <Filter Include="src\render">
       <UniqueIdentifier>{28632b76-0a13-4dbc-ba73-dd9745199f4c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\scheduler">
-      <UniqueIdentifier>{4f9808c9-eaba-418a-a5d3-be6f0dd71185}</UniqueIdentifier>
+    <Filter Include="src\timer">
+      <UniqueIdentifier>{47e98fe0-fcef-4f46-a8dd-ebc49b560c09}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -213,11 +231,23 @@
     <ClInclude Include="..\..\src\base\AutoreleasePool.h">
       <Filter>src\base</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\scheduler\Scheduler.h">
-      <Filter>src\scheduler</Filter>
+    <ClInclude Include="..\..\src\timer\CallbackTimer.h">
+      <Filter>src\timer</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\scheduler\ScheduleListNode.h">
-      <Filter>src\scheduler</Filter>
+    <ClInclude Include="..\..\src\timer\Timer.h">
+      <Filter>src\timer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\timer\TimerHandler.h">
+      <Filter>src\timer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\timer\UpdateTimer.h">
+      <Filter>src\timer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\timer\CallbackTimerMapNode.h">
+      <Filter>src\timer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\timer\UpdateTimerMapNode.h">
+      <Filter>src\timer</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

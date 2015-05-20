@@ -13,6 +13,7 @@ namespace xGame2D
 
 	public:
 		OVERRIDE_DEFAULT_INIT
+
 		bool init(float width, float height, uint32_t color);
 
 		virtual void render(RenderSupport *support) override;

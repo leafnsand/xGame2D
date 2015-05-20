@@ -7,6 +7,7 @@ namespace xGame2D
 {
 	class VertexData;
 	class Texture;
+
 	class Quad : public DisplayObject
 	{
 	constructor:
@@ -26,7 +27,7 @@ namespace xGame2D
 		virtual void copyVertexDataTo(VertexData *target, int32_t index);
 		virtual void vertexDataDidChange();
 
-        virtual void render(RenderSupport *support) override;
+		virtual void render(RenderSupport *support) override;
 		virtual Rectangle *boundsInSpace(DisplayObject *targetSpace) override;
 		virtual void setAlpha(float value) override;
 

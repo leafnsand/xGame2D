@@ -17,6 +17,7 @@ namespace xGame2D
 		static float randomFloatBetween(float min, float max);
 		static float randomFloat();
 		static Data *readFile(std::string &path);
+		static float now();
 	};
 }
 

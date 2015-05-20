@@ -3,13 +3,13 @@
 
 namespace xGame2D
 {
-	extern const uint32_t BlendModeAuto     = 0xffffffff;
-	extern const uint32_t BlendModeNone     = 0x00001010;
-	extern const uint32_t BlendModeNormal   = 0x00004515;
-	extern const uint32_t BlendModeAdd      = 0x00004611;
+	extern const uint32_t BlendModeAuto = 0xffffffff;
+	extern const uint32_t BlendModeNone = 0x00001010;
+	extern const uint32_t BlendModeNormal = 0x00004515;
+	extern const uint32_t BlendModeAdd = 0x00004611;
 	extern const uint32_t BlendModeMultiply = 0x00008585;
-	extern const uint32_t BlendModeScreen   = 0x00004113;
-	extern const uint32_t BlendModeErase    = 0x00000505;
+	extern const uint32_t BlendModeScreen = 0x00004113;
+	extern const uint32_t BlendModeErase = 0x00000505;
 
 	static inline uint32_t encodeFactor(uint32_t factor)
 	{

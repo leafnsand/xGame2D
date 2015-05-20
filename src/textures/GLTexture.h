@@ -32,9 +32,17 @@ namespace xGame2D
 		bool init(const void *imageData, TextureProperties properties);
 		bool init(PVRData *pvrData, float scale);
 
-		virtual void adjustVertexData(VertexData *vertexData, int32_t index, int32_t count) override{};
-		virtual void adjustTexcoords(void *data, int32_t count, int32_t stride) override{};
-		virtual void adjustPositions(void *data, int32_t count, int32_t stride) override{};
+		virtual void adjustVertexData(VertexData *vertexData, int32_t index, int32_t count) override
+		{
+		};
+
+		virtual void adjustTexcoords(void *data, int32_t count, int32_t stride) override
+		{
+		};
+
+		virtual void adjustPositions(void *data, int32_t count, int32_t stride) override
+		{
+		};
 
 		virtual float getWidth() override;
 		virtual float getHeight() override;
@@ -46,7 +54,12 @@ namespace xGame2D
 		virtual float getScale() override;
 		virtual TextureFormat getFormat() override;
 		virtual bool getMipmaps() override;
-		virtual Rectangle *getFrame() override{return nullptr;};
+
+		virtual Rectangle *getFrame() override
+		{
+			return nullptr;
+		};
+
 		virtual bool getRepeat() override;
 		virtual void setRepeat(bool value) override;
 		virtual TextureSmoothing getSmoothing() override;

@@ -20,7 +20,6 @@ namespace xGame2D
 
 	void Context::presentBufferForDisplay()
 	{
-
 	}
 
 	bool Context::makeCurrentContext()

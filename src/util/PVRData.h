@@ -16,6 +16,7 @@ namespace xGame2D
 
 	public:
 		OVERRIDE_DEFAULT_INIT
+
 		bool init(Data *data);
 		bool init(Data *data, bool compressed);
 

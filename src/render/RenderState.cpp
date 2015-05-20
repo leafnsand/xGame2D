@@ -4,10 +4,10 @@
 
 namespace xGame2D
 {
-	RenderState::RenderState()
-		: modelviewMatrix(Object::generate<Matrix>())
-		, alpha(1.0f)
-		, blendMode(BlendModeNormal)
+	RenderState::RenderState():
+		modelviewMatrix(Object::generate<Matrix>()), 
+		alpha(1.0f),
+		blendMode(BlendModeNormal)
 	{
 	}
 

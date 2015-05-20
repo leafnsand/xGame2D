@@ -9,6 +9,7 @@
 
 #if defined(X_PLATFORM_WIN)
 #	include <direct.h>
+#	include <Windows.h>
 #else
 #	include <unistd.h>
 #endif
@@ -16,6 +17,7 @@
 namespace xGame2D
 {
 	static std::string currentDir = "";
+	static float frequency = 0;
 
 	int32_t Utils::nextPowerOfTwo(int32_t number)
 	{
@@ -41,7 +43,7 @@ namespace xGame2D
 
 	float Utils::randomFloat()
 	{
-		return static_cast<float>(std::rand()) / UINT_MAX;
+		return static_cast<float>(std::rand()) / UINT_MAX ;
 	}
 
 	Data *Utils::readFile(std::string &path)
@@ -55,7 +57,7 @@ namespace xGame2D
 			currentDir.append("\\");
 		}
 		if (!(path.length() > 2
-			&& ( (path[0] >= 'a' && path[0] <= 'z') || (path[0] >= 'A' && path[0] <= 'Z') )
+			&& ((path[0] >= 'a' && path[0] <= 'z') || (path[0] >= 'A' && path[0] <= 'Z'))
 			&& path[1] == ':'))
 		{
 			path.insert(0, currentDir);
@@ -86,5 +88,23 @@ namespace xGame2D
 			return Object::create<Data>(buffer, size);
 		}
 		return nullptr;
+	}
+
+	float Utils::now() {
+		float t;
+#if defined(X_PLATFORM_WIN)
+		LARGE_INTEGER time;
+		if (frequency == 0)
+		{
+			QueryPerformanceFrequency(&time);
+			frequency = static_cast<float>(time.QuadPart);
+		}
+		QueryPerformanceCounter(&time);
+		t = static_cast<float>(time.QuadPart);
+		t /= frequency;
+#elif defined(X_PLATFORM_LINUX)
+#elif defined(X_PLATFORM_OSX)
+#endif
+		return t;
 	}
 }

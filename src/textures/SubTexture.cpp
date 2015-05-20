@@ -7,12 +7,12 @@
 
 namespace xGame2D
 {
-	SubTexture::SubTexture()
-		: parent(nullptr)
-		, transformationMatrix(nullptr)
-		, frame(nullptr)
-		, width(0.0f)
-		, height(0.0f)
+	SubTexture::SubTexture():
+		parent(nullptr),
+		transformationMatrix(nullptr),
+		frame(nullptr),
+		width(0.0f),
+		height(0.0f)
 	{
 	}
 
@@ -67,7 +67,7 @@ namespace xGame2D
 	{
 		Texture *texture = dynamic_cast<Texture *>(this);
 		auto matrix = Object::create<Matrix>();
-		do 
+		do
 		{
 			auto subTexture = dynamic_cast<SubTexture *>(texture);
 			matrix->appendMatrix(subTexture->transformationMatrix);
@@ -76,7 +76,7 @@ namespace xGame2D
 		while (dynamic_cast<SubTexture *>(texture));
 		int32_t step = sizeof(Position) + stride;
 		auto pointer = static_cast<char *>(data);
-		for (auto i = 0; i < count; i++)
+		for (auto i = 0; i < count; ++i)
 		{
 			auto position = (Position *)pointer;
 			auto x = position->x;
@@ -201,8 +201,9 @@ namespace xGame2D
 		auto clipping = getClipping();
 		auto root = getRoot();
 		return Object::create<Rectangle>(clipping->x * root->getNativeWidth(), clipping->y * root->getNativeHeight(),
-			clipping->width * root->getNativeWidth(), clipping->height * root->getNativeHeight());
+		                                 clipping->width * root->getNativeWidth(), clipping->height * root->getNativeHeight());
 	}
+
 	Rectangle *SubTexture::getClipping()
 	{
 		auto topLeft = transformationMatrix->transform(0.0f, 0.0f);

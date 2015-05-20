@@ -12,7 +12,7 @@ namespace xGame2D
 	class Matrix;
 	class Point;
 	class Rectangle;
-    class RenderSupport;
+	class RenderSupport;
 	class Stage;
 
 	class DisplayObject : public Object
@@ -23,7 +23,7 @@ namespace xGame2D
 
 	public:
 		virtual void render(RenderSupport *support) = 0;
-        void removeFromParent();
+		void removeFromParent();
 		void alignPivotToCenter();
 		void alignPivot(HAlign hAlign, VAlign vAlign);
 		Matrix *transformationMatrixToSpace(DisplayObject *targetSpace);

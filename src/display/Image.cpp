@@ -5,10 +5,10 @@
 
 namespace xGame2D
 {
-	Image::Image()
-		: texture(nullptr)
-		, vertexDataCache(nullptr)
-		, vertexDataCacheInvalid(false)
+	Image::Image(): 
+		texture(nullptr), 
+		vertexDataCache(nullptr), 
+		vertexDataCacheInvalid(false)
 	{
 	}
 

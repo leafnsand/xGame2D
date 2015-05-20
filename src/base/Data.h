@@ -10,19 +10,42 @@ namespace xGame2D
 	class Data : public Object, Copying
 	{
 	constructor:
-		Data() : rawData(nullptr), size(0) {}
-		virtual ~Data() { if (rawData) { free(rawData); } }
+		Data() : rawData(nullptr), size(0)
+		{
+		}
+
+		virtual ~Data()
+		{
+			if (rawData)
+			{
+				free(rawData);
+			}
+		}
 
 	public:
 		OVERRIDE_DEFAULT_INIT
 
-		inline bool init(void *buffer, size_t s) { rawData = buffer; size = s; return true; }
+		inline bool init(void *buffer, size_t s)
+		{
+			rawData = buffer;
+			size = s;
+			return true;
+		}
 
-		virtual inline Data *copy() override { return Object::generate<Data>(this->rawData, this->size); }
+		virtual inline Data *copy() override
+		{
+			return Object::generate<Data>(this->rawData, this->size);
+		}
 
-		inline void *getBuffer() { return rawData; }
+		inline void *getBuffer()
+		{
+			return rawData;
+		}
 
-		inline size_t getSize() { return size; }
+		inline size_t getSize()
+		{
+			return size;
+		}
 
 	private:
 		void *rawData;

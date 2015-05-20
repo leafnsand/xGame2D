@@ -3,13 +3,13 @@
 
 namespace xGame2D
 {
-	Matrix::Matrix()
-		: a(1.0f)
-		, b(0.0f)
-		, c(0.0f)
-		, d(1.0f)
-		, tx(0.0f)
-		, ty(0.0f)
+	Matrix::Matrix(): 
+		a(1.0f),
+		b(0.0f),
+		c(0.0f),
+		d(1.0f),
+		tx(0.0f),
+		ty(0.0f)
 	{
 	}
 
@@ -70,21 +70,21 @@ namespace xGame2D
 	void Matrix::appendMatrix(Matrix *left)
 	{
 		set(left->a * a + left->c * b,
-			left->b * a + left->d * b,
-			left->a * c + left->c * d,
-			left->b * c + left->d * d,
-			left->a * tx + left->c * ty + left->tx,
-			left->b * tx + left->d * ty + left->ty);
+		    left->b * a + left->d * b,
+		    left->a * c + left->c * d,
+		    left->b * c + left->d * d,
+		    left->a * tx + left->c * ty + left->tx,
+		    left->b * tx + left->d * ty + left->ty);
 	}
 
 	void Matrix::prependMatrix(Matrix *right)
 	{
 		set(a * right->a + c * right->b,
-			b * right->a + d * right->b,
-			a * right->c + c * right->d,
-			b * right->c + d * right->d,
-			tx + a * right->tx + c * right->ty,
-			ty + b * right->tx + d * right->ty);
+		    b * right->a + d * right->b,
+		    a * right->c + c * right->d,
+		    b * right->c + d * right->d,
+		    tx + a * right->tx + c * right->ty,
+		    ty + b * right->tx + d * right->ty);
 	}
 
 	void Matrix::translate(float x, float y)
@@ -120,12 +120,12 @@ namespace xGame2D
 		auto cosX = cosf(x);
 		auto sinY = sinf(y);
 		auto cosY = cosf(y);
-		set(a  * cosY - b  * sinX,
-			a  * sinY + b  * cosX,
-			c  * cosY - d  * sinX,
-			c  * sinY + d  * cosX,
-			tx * cosY - ty * sinX,
-			tx * sinY + ty * cosX);
+		set(a * cosY - b * sinX,
+		    a * sinY + b * cosX,
+		    c * cosY - d * sinX,
+		    c * sinY + d * cosX,
+		    tx * cosY - ty * sinX,
+		    tx * sinY + ty * cosX);
 	}
 
 	void Matrix::rotate(float angle)
@@ -134,8 +134,8 @@ namespace xGame2D
 		auto cos = cosf(angle);
 		auto sin = sinf(angle);
 		set(a * cos - b * sin, a * sin + b * cos,
-			c * cos - d * sin, c * sin + d * cos,
-			tx * cos - ty * sin, tx * sin + ty * cos);
+		    c * cos - d * sin, c * sin + d * cos,
+		    tx * cos - ty * sin, tx * sin + ty * cos);
 	}
 
 	void Matrix::identity()
@@ -152,11 +152,11 @@ namespace xGame2D
 	{
 		auto det = getDeterminant();
 		set(d / det,
-			-b / det,
-			-c / det,
-			a / det,
-			(c*ty - d*tx) / det,
-			(b*tx - a*ty) / det);
+		    -b / det,
+		    -c / det,
+		    a / det,
+		    (c * ty - d * tx) / det,
+		    (b * tx - a * ty) / det);
 	}
 
 	void Matrix::clone(Matrix *matrix)

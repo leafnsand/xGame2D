@@ -5,23 +5,26 @@
 
 namespace xGame2D
 {
-    class Timer : public Object
-    {
-    constructor:
-        Timer();
-        virtual ~Timer();
+	class Timer : public Object
+	{
+	constructor:
+		Timer();
+		virtual ~Timer();
 
-    public:
-        bool init(float interval, uint32_t repeat, float delay);
-        void update(float delta);
-        virtual void trigger() = 0;
-        virtual void cancel() = 0;
+	public:
+		bool init(float interval, uint32_t repeat, float delay);
+		void update(float delta);
+		virtual void trigger() = 0;
+		virtual void cancel() = 0;
 
-    protected:
-        float elapsed, delay, interval;
-        bool runForever, useDelay;
-        uint32_t timesExecuted, repeat;
-    };
+	protected:
+		float elapsed, delay, interval;
+		bool runForever, useDelay;
+		uint32_t timesExecuted, repeat;
+
+		friend class TimerHandler;
+	};
 }
 
 #endif //__X_TIMER_H__
+

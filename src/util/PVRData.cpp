@@ -9,19 +9,19 @@ namespace xGame2D
 {
 	typedef struct
 	{
-		uint32_t headerSize;          // size of the structure
-		uint32_t height;              // height of surface to be created
-		uint32_t width;               // width of input surface
-		uint32_t numMipmaps;          // number of mip-map levels requested
-		uint32_t pfFlags;             // pixel format flags
-		uint32_t textureDataSize;     // total size in bytes
-		uint32_t bitCount;            // number of bits per pixel
-		uint32_t rBitMask;            // mask for red bit
-		uint32_t gBitMask;            // mask for green bits
-		uint32_t bBitMask;            // mask for blue bits
-		uint32_t alphaBitMask;        // mask for alpha channel
-		uint32_t pvr;                 // magic number identifying pvr file
-		uint32_t numSurfs;            // number of surfaces present in the pvr
+		uint32_t headerSize; // size of the structure
+		uint32_t height; // height of surface to be created
+		uint32_t width; // width of input surface
+		uint32_t numMipmaps; // number of mip-map levels requested
+		uint32_t pfFlags; // pixel format flags
+		uint32_t textureDataSize; // total size in bytes
+		uint32_t bitCount; // number of bits per pixel
+		uint32_t rBitMask; // mask for red bit
+		uint32_t gBitMask; // mask for green bits
+		uint32_t bBitMask; // mask for blue bits
+		uint32_t alphaBitMask; // mask for alpha channel
+		uint32_t pvr; // magic number identifying pvr file
+		uint32_t numSurfs; // number of surfaces present in the pvr
 	} PVRTextureHeader;
 
 	enum PVRPixelType
@@ -40,8 +40,8 @@ namespace xGame2D
 		OGL_A_8
 	};
 
-	PVRData::PVRData()
-		: rawData(nullptr)
+	PVRData::PVRData():
+		rawData(nullptr)
 	{
 	}
 
@@ -68,14 +68,22 @@ namespace xGame2D
 		numMipmaps = header->numMipmaps;
 		switch (header->pfFlags & 0xff)
 		{
-			case OGL_RGB_565:   format = TextureFormat565;   break;
-			case OGL_RGB_888:   format = TextureFormat888;   break;
-			case OGL_RGBA_5551: format = TextureFormat5551;  break;
-			case OGL_RGBA_4444: format = TextureFormat4444;  break;
-			case OGL_RGBA_8888: format = TextureFormatRGBA;  break;
-			case OGL_A_8:       format = TextureFormatAlpha; break;
-			case OGL_I_8:       format = TextureFormatI8;    break;
-			case OGL_AI_88:     format = TextureFormatAI88;  break;
+			case OGL_RGB_565: format = TextureFormat565;
+				break;
+			case OGL_RGB_888: format = TextureFormat888;
+				break;
+			case OGL_RGBA_5551: format = TextureFormat5551;
+				break;
+			case OGL_RGBA_4444: format = TextureFormat4444;
+				break;
+			case OGL_RGBA_8888: format = TextureFormatRGBA;
+				break;
+			case OGL_A_8: format = TextureFormatAlpha;
+				break;
+			case OGL_I_8: format = TextureFormatI8;
+				break;
+			case OGL_AI_88: format = TextureFormatAI88;
+				break;
 #if COMPRESSED_TEXTURE
 			case OGL_PVRTC2:
 				format = header->alphaBitMask ? TextureFormatPvrtcRGBA2 : TextureFormatPvrtcRGB2;

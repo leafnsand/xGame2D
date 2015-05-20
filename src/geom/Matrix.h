@@ -17,6 +17,7 @@ namespace xGame2D
 
 	public:
 		OVERRIDE_DEFAULT_INIT
+
 		bool init(float angle);
 		bool init(float value1, float value2, bool forScale);
 		bool init(float a, float b, float c, float d, float tx, float ty);

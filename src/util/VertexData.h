@@ -41,6 +41,7 @@ namespace xGame2D
 
 	public:
 		OVERRIDE_DEFAULT_INIT
+
 		bool init(int32_t numVertices);
 		bool init(int32_t numVertices, bool pma);
 

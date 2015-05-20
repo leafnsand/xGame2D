@@ -16,6 +16,7 @@ namespace xGame2D
 
 	public:
 		OVERRIDE_DEFAULT_INIT
+
 		bool init(float x, float y, float width, float height);
 
 		bool contains(float x, float y);

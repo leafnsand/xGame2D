@@ -5,16 +5,16 @@
 
 namespace xGame2D
 {
-	GLTexture::GLTexture()
-		: format(TextureFormatRGBA)
-		, smoothing(TextureSmoothingNone)
-		, name(0)
-		, width(0.0f)
-		, height(0.0f)
-		, scale(1.0f)
-		, repeat(true)
-		, premultipliedAlpha(false)
-		, mipmaps(false)
+	GLTexture::GLTexture():
+		format(TextureFormatRGBA),
+		smoothing(TextureSmoothingNone),
+		name(0),
+		width(0.0f),
+		height(0.0f),
+		scale(1.0f),
+		repeat(true),
+		premultipliedAlpha(false),
+		mipmaps(false)
 	{
 	}
 
@@ -120,7 +120,7 @@ namespace xGame2D
 			auto levelWidth = properties.width;
 			auto levelHeight = properties.height;
 			auto levelData = static_cast<const uint8_t *>(imageData);
-			for (auto level = 0; level <= properties.numMipmaps; level++)
+			for (auto level = 0; level <= properties.numMipmaps; ++level)
 			{
 				auto size = levelWidth * levelHeight * bitsPerPixel / 8;
 				glTexImage2D(GL_TEXTURE_2D, level, glTexFormat, levelWidth, levelHeight, 0, glTexFormat, glTexType, levelData);
@@ -138,7 +138,7 @@ namespace xGame2D
 			auto levelWidth = properties.width;
 			auto levelHeight = properties.height;
 			auto levelData = static_cast<const unsigned char *>(imageData);
-			for (auto level = 0; level <= properties.numMipmaps; level++)
+			for (auto level = 0; level <= properties.numMipmaps; ++level)
 			{
 				auto size = levelWidth * levelHeight * bitsPerPixel / 8;
 				if (size < 32)
@@ -154,7 +154,7 @@ namespace xGame2D
 		glBindTexture(GL_TEXTURE_2D, 0);
 		auto containsMipmaps = properties.numMipmaps > 0 || (properties.generateMipmaps && !compressed);
 		return init(glTexName, properties.format, static_cast<float>(properties.width), static_cast<float>(properties.height)
-			, containsMipmaps, properties.scale, properties.premultipliedAlpha);
+		            , containsMipmaps, properties.scale, properties.premultipliedAlpha);
 	}
 
 	bool GLTexture::init(PVRData *pvrData, float scale)

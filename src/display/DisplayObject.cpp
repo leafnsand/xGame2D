@@ -10,24 +10,24 @@
 
 namespace xGame2D
 {
-	DisplayObject::DisplayObject()
-		: x(0.0f)
-		, y(0.0f)
-		, pivotX(0.0f)
-		, pivotY(0.0f)
-		, scaleX(1.0f)
-		, scaleY(1.0f)
-		, skewX(0.0f)
-		, skewY(0.0f)
-		, rotation(0.0f)
-		, alpha(1.0f)
-		, blendMode(BlendModeAuto)
-		, visible(true)
-		, touchable(true)
-		, orientationChanges(false)
-		, parent(nullptr)
-		, transformationMatrix(Object::generate<Matrix>())
-		, name("")
+	DisplayObject::DisplayObject():
+		x(0.0f),
+		y(0.0f),
+		pivotX(0.0f),
+		pivotY(0.0f),
+		scaleX(1.0f),
+		scaleY(1.0f), 
+		skewX(0.0f), 
+		skewY(0.0f), 
+		rotation(0.0f), 
+		alpha(1.0f), 
+		blendMode(BlendModeAuto), 
+		visible(true), 
+		touchable(true), 
+		orientationChanges(false), 
+		parent(nullptr), 
+		transformationMatrix(Object::generate<Matrix>()), 
+		name("")
 	{
 	}
 
@@ -124,7 +124,7 @@ namespace xGame2D
 		currentObject = targetSpace;
 		while (currentObject && !commonParent)
 		{
-			for (auto i = 0; i < count; i++)
+			for (auto i = 0; i < count; ++i)
 			{
 				if (currentObject == ancestors[i])
 				{
@@ -153,7 +153,7 @@ namespace xGame2D
 		selfMatrix->appendMatrix(targetMatrix);
 		return selfMatrix;
 	}
-    
+
 	Point *DisplayObject::localToGlobal(Point *localPoint)
 	{
 		auto matrix = transformationMatrixToSpace(getBase());

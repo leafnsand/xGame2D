@@ -33,22 +33,24 @@ namespace xGame2D
 	{
 		auto alpha = color.a / 255.0f;
 		if (alpha == 1.0f) return color;
-		else return VertexColorMake(
-			static_cast<uint8_t>(color.r * alpha),
-			static_cast<uint8_t>(color.g * alpha),
-			static_cast<uint8_t>(color.b * alpha),
-			color.a);
+		else
+			return VertexColorMake(
+				static_cast<uint8_t>(color.r * alpha),
+				static_cast<uint8_t>(color.g * alpha),
+				static_cast<uint8_t>(color.b * alpha),
+				color.a);
 	}
 
 	static Color unmultiplyAlpha(Color color)
 	{
 		auto alpha = color.a / 255.0f;
 		if (alpha == 0.0f || alpha == 1.0f) return color;
-		else return VertexColorMake(
-			static_cast<uint8_t>(color.r / alpha),
-			static_cast<uint8_t>(color.g / alpha),
-			static_cast<uint8_t>(color.b / alpha),
-			color.a);
+		else
+			return VertexColorMake(
+				static_cast<uint8_t>(color.r / alpha),
+				static_cast<uint8_t>(color.g / alpha),
+				static_cast<uint8_t>(color.b / alpha),
+				color.a);
 	}
 
 	static bool isOpaqueWhite(Color color)
@@ -56,10 +58,10 @@ namespace xGame2D
 		return color.a == 255 && color.r == 255 && color.g == 255 && color.b == 255;
 	}
 
-	VertexData::VertexData()
-		: vertices(nullptr)
-		, numVertices(0)
-		, premultipliedAlpha(false)
+	VertexData::VertexData():
+		vertices(nullptr),
+		numVertices(0),
+		premultipliedAlpha(false)
 	{
 	}
 
@@ -94,7 +96,7 @@ namespace xGame2D
 	{
 		X_ASSERT(count >= 0 && count <= numVertices, "Invalid vertex count");
 		X_ASSERT(targetIndex + count <= target->numVertices, "Target too small");
-		memcpy(&target->vertices[targetIndex], vertices, sizeof(Vertex)* count);
+		memcpy(&target->vertices[targetIndex], vertices, sizeof(Vertex) * count);
 	}
 
 	Vertex VertexData::vertexAtIndex(int32_t index)
@@ -176,13 +178,13 @@ namespace xGame2D
 
 	void VertexData::setColorOfAll(uint32_t color, float alpha)
 	{
-		for (auto i = 0; i < numVertices; i++)
+		for (auto i = 0; i < numVertices; ++i)
 			setColorAtIndex(color, alpha, i);
 	}
 
 	void VertexData::setColorOfAll(uint32_t color)
 	{
-		for (auto i = 0; i < numVertices; i++)
+		for (auto i = 0; i < numVertices; ++i)
 			setColorAtIndex(color, i);
 	}
 
@@ -208,7 +210,7 @@ namespace xGame2D
 
 	void VertexData::setAlphaOfAll(float alpha)
 	{
-		for (auto i = 0; i < numVertices; i++)
+		for (auto i = 0; i < numVertices; ++i)
 			setAlphaAtIndex(alpha, i);
 	}
 
@@ -222,7 +224,7 @@ namespace xGame2D
 		X_ASSERT(index >= 0 && index < numVertices, "Invalid vertex index");
 		if (scale == 1.0f) return;
 		uint8_t minAlpha = premultipliedAlpha ? static_cast<uint8_t>(MIN_ALPHA * 255.0f) : 0;
-		for (auto i = index; i < index + count; i++)
+		for (auto i = index; i < index + count; ++i)
 		{
 			auto vertex = &vertices[i];
 			auto vertexColor = vertex->color;
@@ -247,12 +249,12 @@ namespace xGame2D
 		{
 			if (value)
 			{
-				for (auto i = 0; i < numVertices; i++)
+				for (auto i = 0; i < numVertices; ++i)
 					vertices[i].color = premultiplyAlpha(vertices[i].color);
 			}
 			else
 			{
-				for (auto i = 0; i < numVertices; i++)
+				for (auto i = 0; i < numVertices; ++i)
 					vertices[i].color = unmultiplyAlpha(vertices[i].color);
 			}
 		}
@@ -263,7 +265,7 @@ namespace xGame2D
 	{
 		X_ASSERT(index >= 0 && index + count < numVertices, "Invalid vertex range");
 		if (!matrix) return;
-		for (auto i = index, end = index + count; i < end; i++)
+		for (auto i = index, end = index + count; i < end; ++i)
 		{
 			auto pos = vertices[i].position;
 			vertices[i].position.x = matrix->a * pos.x + matrix->c * pos.y + matrix->tx;
@@ -289,7 +291,7 @@ namespace xGame2D
 		auto endIndex = index + count;
 		if (matrix)
 		{
-			for (auto i = index; i < endIndex; i++)
+			for (auto i = index; i < endIndex; ++i)
 			{
 				auto position = vertices[i].position;
 				auto transformedPoint = matrix->transform(position.x, position.y);
@@ -303,7 +305,7 @@ namespace xGame2D
 		}
 		else
 		{
-			for (auto i = index; i < endIndex; i++)
+			for (auto i = index; i < endIndex; ++i)
 			{
 				auto position = vertices[i].position;
 				minX = MIN(minX, position.x);
@@ -322,13 +324,13 @@ namespace xGame2D
 			if (numVertices > 0)
 			{
 				if (vertices)
-					vertices = static_cast<Vertex *>(realloc(vertices, sizeof(Vertex)* numVertices));
+					vertices = static_cast<Vertex *>(realloc(vertices, sizeof(Vertex) * numVertices));
 				else
-					vertices = static_cast<Vertex *>(malloc(sizeof(Vertex)* numVertices));
+					vertices = static_cast<Vertex *>(malloc(sizeof(Vertex) * numVertices));
 				if (numVertices > this->numVertices)
 				{
-					memset(&vertices[this->numVertices], 0, sizeof(Vertex)* (numVertices - this->numVertices));
-					for (auto i = this->numVertices; i < numVertices; i++)
+					memset(&vertices[this->numVertices], 0, sizeof(Vertex) * (numVertices - this->numVertices));
+					for (auto i = this->numVertices; i < numVertices; ++i)
 						vertices[i].color = VertexColorMakeWithColorAndAlpha(0, 1.0f);
 				}
 			}
@@ -351,7 +353,7 @@ namespace xGame2D
 
 	bool VertexData::getTinted()
 	{
-		for (auto i = 0; i < numVertices; i++)
+		for (auto i = 0; i < numVertices; ++i)
 		{
 			if (!isOpaqueWhite(vertices[i].color))
 				return true;
@@ -362,7 +364,7 @@ namespace xGame2D
 	VertexData *VertexData::copy()
 	{
 		auto value = Object::generate<VertexData>(numVertices, premultipliedAlpha);
-		memcpy(value->vertices, vertices, sizeof(Vertex)* numVertices);
+		memcpy(value->vertices, vertices, sizeof(Vertex) * numVertices);
 		return value;
 	}
 }

@@ -14,14 +14,14 @@ namespace xGame2D
 	extern const uint32_t BlendModeScreen;
 	extern const uint32_t BlendModeErase;
 
-    class BlendMode
-    {
-    public:
-        static uint32_t encodeBlendMode(uint32_t srcFactor, uint32_t dstFactor);
-        static uint32_t encodeBlendMode(uint32_t srcFactor, uint32_t dstFactor, uint32_t srcFactorPMA, uint32_t dstFactorPMA);
-        static void decodeBlendMode(uint32_t blendMode, bool pma, uint32_t *srcFactor, uint32_t *dstFactor);
-        static void applyBlendFactorsForBlendMode(uint32_t blendMode, bool pma);
-    };
+	class BlendMode
+	{
+	public:
+		static uint32_t encodeBlendMode(uint32_t srcFactor, uint32_t dstFactor);
+		static uint32_t encodeBlendMode(uint32_t srcFactor, uint32_t dstFactor, uint32_t srcFactorPMA, uint32_t dstFactorPMA);
+		static void decodeBlendMode(uint32_t blendMode, bool pma, uint32_t *srcFactor, uint32_t *dstFactor);
+		static void applyBlendFactorsForBlendMode(uint32_t blendMode, bool pma);
+	};
 }
 
 #endif

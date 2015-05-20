@@ -15,6 +15,7 @@ namespace xGame2D
 
 	public:
 		OVERRIDE_DEFAULT_INIT
+
 		bool init(Rectangle *region, Texture *texture);
 		bool init(Rectangle *region, Rectangle *frame, Texture *texture);
 		bool init(Rectangle *region, Rectangle *frame, bool rotated, Texture *texture);

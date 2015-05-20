@@ -20,11 +20,18 @@ namespace xGame2D
 		virtual ~Game();
 
 	public:
-		static inline Game *getInstance() { if (instance == nullptr) instance = Object::generate<Game>(); return instance;}
-		
+		static inline Game *getInstance()
+		{
+			if (instance == nullptr) instance = Object::generate<Game>();
+			return instance;
+		}
+
 		OVERRIDE_DEFAULT_INIT
+
 		bool init(float width, float height, uint32_t color);
-		void update();
+		void setFrameRate(int8_t frameRate);
+		void loop();
+		void update(float delta);
 
 	public:
 		ProgramCache *programCache;
@@ -32,10 +39,13 @@ namespace xGame2D
 		Stage *stage;
 		Context *context;
 		TimerHandler *timerHandler;
+		int8_t frameRate;
+		float deltaTimePerFrame;
 
 	private:
 		static Game *instance;
 		RenderSupport *support;
+		float lastUpdate;
 	};
 }
 

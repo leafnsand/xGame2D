@@ -16,6 +16,7 @@ namespace xGame2D
 
 	public:
 		OVERRIDE_DEFAULT_INIT
+
 		bool init(std::string &vertexShader, std::string &fragmentShader);
 
 		int32_t uniform(std::string &name);

@@ -14,12 +14,24 @@ namespace xGame2D
 	protected:
 		AutoreleasePool();
 		virtual ~AutoreleasePool();
-		void destroy() { if (instance) delete instance; }
+
+		void destroy()
+		{
+			if (instance) delete instance;
+		}
 
 	public:
-		static inline AutoreleasePool *getInstance() { if (instance == nullptr) instance = new AutoreleasePool; return instance; }
+		static inline AutoreleasePool *getInstance()
+		{
+			if (instance == nullptr) instance = new AutoreleasePool;
+			return instance;
+		}
 
-		inline void addObject(Object *object) { if (std::find(cache.begin(), cache.end(), object) == cache.end()) cache.push_back(object); }
+		inline void addObject(Object *object)
+		{
+			if (std::find(cache.begin(), cache.end(), object) == cache.end()) cache.push_back(object);
+		}
+
 		void clear();
 		void dump();
 

@@ -1,6 +1,7 @@
 #include "render/ProgramCache.h"
 
-namespace xGame2D {
+namespace xGame2D
+{
 	ProgramCache::ProgramCache()
 	{
 	}
@@ -10,18 +11,18 @@ namespace xGame2D {
 		cache.clear();
 	}
 
-    void ProgramCache::registerProgram(Program *program, std::string &name)
-    {
-        cache[name] = program;
-    }
-    
-    Program *ProgramCache::getProgram(std::string &name)
-    {
-        return cache[name];
-    }
-    
-    void ProgramCache::unregisterProgram(std::string &name)
-    {
-        cache.erase(name);
-    }
+	void ProgramCache::registerProgram(Program *program, std::string &name)
+	{
+		cache[name] = program;
+	}
+
+	Program *ProgramCache::getProgram(std::string &name)
+	{
+		return cache[name];
+	}
+
+	void ProgramCache::unregisterProgram(std::string &name)
+	{
+		cache.erase(name);
+	}
 }

@@ -18,7 +18,7 @@ namespace xGame2D
 		void renderToBackBuffer();
 		void presentBufferForDisplay();
 		bool makeCurrentContext();
-		
+
 		static bool setCurrentContext(Context *context);
 		static Context *currentContext();
 

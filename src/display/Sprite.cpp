@@ -10,10 +10,10 @@
 
 namespace xGame2D
 {
-	Sprite::Sprite()
-		: flattenContents(nullptr)
-		, flattenRequested(false)
-		, clipRect(nullptr)
+	Sprite::Sprite(): 
+		flattenContents(nullptr), 
+		flattenRequested(false), 
+		clipRect(nullptr)
 	{
 	}
 
@@ -66,14 +66,22 @@ namespace xGame2D
 		auto clipBottom = clipRect->bottom();
 		auto transform = transformationMatrixToSpace(targetSpace);
 		auto x = 0.0f, y = 0.0f;
-		for (auto i = 0; i < 4; i++)
+		for (auto i = 0; i < 4; ++i)
 		{
 			switch (i)
 			{
-				case 0: x = clipLeft;  y = clipTop;    break;
-				case 1: x = clipLeft;  y = clipBottom; break;
-				case 2: x = clipRight; y = clipTop;    break;
-				case 3: x = clipRight; y = clipBottom; break;
+				case 0: x = clipLeft;
+					y = clipTop;
+					break;
+				case 1: x = clipLeft;
+					y = clipBottom;
+					break;
+				case 2: x = clipRight;
+					y = clipTop;
+					break;
+				case 3: x = clipRight;
+					y = clipBottom;
+					break;
 			}
 			auto transformedPoint = transform->transform(x, y);
 			if (minX > transformedPoint->x) minX = transformedPoint->x;

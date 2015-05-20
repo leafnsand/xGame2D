@@ -4,10 +4,10 @@
 
 namespace xGame2D
 {
-	Program::Program()
-		: name(0)
-		, vertexShader("")
-		, fragmentShader("")
+	Program::Program():
+		name(0),
+		vertexShader(""),
+		fragmentShader("")
 	{
 	}
 
@@ -75,7 +75,7 @@ namespace xGame2D
 			glGetProgramiv(program, GL_INFO_LOG_LENGTH, &length);
 			if (length)
 			{
-				auto log = static_cast<char *>(malloc(sizeof(char)* length));
+				auto log = static_cast<char *>(malloc(sizeof(char) * length));
 				glGetProgramInfoLog(program, length, nullptr, log);
 				Console::Error("Error linking program: %s", log);
 				free(log);
@@ -105,10 +105,10 @@ namespace xGame2D
 			glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &logLength);
 			if (logLength)
 			{
-				auto log = static_cast<char *>(malloc(sizeof(char)* logLength));
+				auto log = static_cast<char *>(malloc(sizeof(char) * logLength));
 				glGetShaderInfoLog(shader, logLength, nullptr, log);
 				Console::Error("Error compiling %s shader: %s",
-					type == GL_VERTEX_SHADER ? "vertex" : "fragment", log);
+				               type == GL_VERTEX_SHADER ? "vertex" : "fragment", log);
 				free(log);
 			}
 			glDeleteShader(shader);
@@ -125,7 +125,7 @@ namespace xGame2D
 		auto numUniforms = 0;
 		glGetProgramiv(name, GL_ACTIVE_UNIFORMS, &numUniforms);
 		uniforms.clear();
-		for (auto i = 0; i < numUniforms; i++)
+		for (auto i = 0; i < numUniforms; ++i)
 		{
 			GLsizei length;
 			GLint size;
@@ -142,7 +142,7 @@ namespace xGame2D
 		auto numAttributes = 0;
 		glGetProgramiv(name, GL_ACTIVE_ATTRIBUTES, &numAttributes);
 		attributes.clear();
-		for (auto i = 0; i < numAttributes; i++)
+		for (auto i = 0; i < numAttributes; ++i)
 		{
 			GLsizei length;
 			GLint size;

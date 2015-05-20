@@ -3,12 +3,12 @@
 
 namespace xGame2D
 {
-    class Console
-    {
-    public:
-        static void Log(const char *format, ...);
-        static void Error(const char *format, ...);
-    };
+	class Console
+	{
+	public:
+		static void Log(const char *format, ...);
+		static void Error(const char *format, ...);
+	};
 }
 
 #endif

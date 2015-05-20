@@ -3,11 +3,11 @@
 
 namespace xGame2D
 {
-	Rectangle::Rectangle()
-		: x(0.0f)
-		, y(0.0f)
-		, width(0.0f)
-		, height(0.0f)
+	Rectangle::Rectangle(): 
+		x(0.0f), 
+		y(0.0f), 
+		width(0.0f), 
+		height(0.0f)
 	{
 	}
 
@@ -115,8 +115,9 @@ namespace xGame2D
 	{
 		if (rectangle == this) return true;
 		else if (!rectangle) return false;
-		else return IsFloatEqual(x, rectangle->x) && IsFloatEqual(y, rectangle->y) 
-			&& IsFloatEqual(width, rectangle->width) && IsFloatEqual(height, rectangle->height);
+		else
+			return IsFloatEqual(x, rectangle->x) && IsFloatEqual(y, rectangle->y)
+				&& IsFloatEqual(width, rectangle->width) && IsFloatEqual(height, rectangle->height);
 	}
 
 	void Rectangle::normalize()

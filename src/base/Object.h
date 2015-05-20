@@ -24,8 +24,13 @@ namespace xGame2D
 	class Object
 	{
 	protected:
-		Object():ref(1){};
-        virtual ~Object(){};
+		Object():ref(1)
+		{
+		};
+
+		virtual ~Object()
+		{
+		};
 
 	public:
 		virtual inline bool init()
@@ -55,7 +60,7 @@ namespace xGame2D
 		}
 
 		template <class T, typename ...Args>
-		static inline T *generate(Args&& ...args)
+		static inline T *generate(Args && ...args)
 		{
 			T *v = new T();
 			if (v->init(std::forward<Args>(args)...))
@@ -66,7 +71,7 @@ namespace xGame2D
 		}
 
 		template <class T, typename ...Args>
-		static inline T *create(Args&& ...args)
+		static inline T *create(Args && ...args)
 		{
 			T *v = new T();
 			if (v->init(std::forward<Args>(args)...))

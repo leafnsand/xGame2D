@@ -11,7 +11,7 @@ namespace xGame2D
 	constructor:
 		DisplayObjectContainer();
 		virtual ~DisplayObjectContainer();
-		
+
 	public:
 		virtual bool init() override;
 

@@ -31,7 +31,7 @@ namespace xGame2D
 			png_error(png_ptr, "pngReaderCallback failed");
 		}
 	}
-	
+
 	Texture *Texture::create(float width, float height)
 	{
 		size_t size = static_cast<int32_t>(width) * static_cast<int32_t>(height) * 4;
@@ -165,7 +165,7 @@ namespace xGame2D
 		size = rowbytes * static_cast<int32_t>(height);
 		buffer = malloc(size);
 		auto image_data = static_cast<uint8_t *>(buffer);
-		for (uint32_t i = 0; i < height; i++)
+		for (uint32_t i = 0; i < height; ++i)
 		{
 			row_pointers[i] = image_data + i * rowbytes;
 		}

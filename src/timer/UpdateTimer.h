@@ -6,21 +6,27 @@
 
 namespace xGame2D
 {
-    class UpdateTimer : public Timer
-    {
-    constructor:
-        UpdateTimer();
-        virtual ~UpdateTimer();
+	class UpdateTimer : public Timer
+	{
+	constructor:
+		UpdateTimer();
+		virtual ~UpdateTimer();
 
-    public:
-        bool init(void *target, const std::function<void(float)> &update, float interval, uint32_t repeat, float delay);
-        virtual void trigger() override;
-        virtual void cancel() override;
+	public:
+		bool init(void *target, const std::function<void(float)> &updateFunction, int32_t priority, bool paused);
+		virtual void trigger() override;
+		virtual void cancel() override;
 
-    protected:
-        void *target;
-        std::function<void(float)> update;
-    };
+	protected:
+		void *target;
+		std::function<void(float)> updateFunction;
+		int32_t priority;
+		bool paused;
+
+		friend class TimerHandler;
+		friend class UpdateTimerMapNode;
+	};
 }
 
 #endif //__X_UPDATELISTNODE_H__
+

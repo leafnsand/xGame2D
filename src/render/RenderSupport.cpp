@@ -12,11 +12,16 @@
 
 namespace xGame2D
 {
-	RenderSupport::RenderSupport()
-		: projectionMatrix(Object::generate<Matrix>()), mvpMatrix(Object::generate<Matrix>())
-		, numDrawCalls(0), stateStackIndex(0), stateStackSize(1), quadBatchIndex(0), quadBatchSize(1), clipRectStackSize(0)
-		, stateStackTop(Object::generate<RenderState>())
-		, quadBatchTop(Object::generate<QuadBatch>())
+	RenderSupport::RenderSupport():
+		projectionMatrix(Object::generate<Matrix>()), mvpMatrix(Object::generate<Matrix>()),
+		numDrawCalls(0),
+		stateStackIndex(0),
+		stateStackSize(1),
+		quadBatchIndex(0),
+		quadBatchSize(1),
+		clipRectStackSize(0),
+		stateStackTop(Object::generate<RenderState>()),
+		quadBatchTop(Object::generate<QuadBatch>())
 	{
 	}
 
@@ -74,9 +79,9 @@ namespace xGame2D
 			if (quadBatchSize == quadBatchIndex + 1)
 			{
 				quadBatches.push_back(Object::generate<QuadBatch>());
-				quadBatchSize++;
+				++quadBatchSize;
 			}
-			numDrawCalls++;
+			++numDrawCalls;
 			quadBatchTop = quadBatches[++quadBatchIndex];
 		}
 	}
@@ -118,15 +123,15 @@ namespace xGame2D
 		GLenum error;
 		while ((error = glGetError()))
 		{
-            std::string string = "UNKNOWN_ERROR";
+			std::string string = "UNKNOWN_ERROR";
 			switch (error)
 			{
-				case GL_NO_ERROR:                       string = "GL_NO_ERROR";
-				case GL_INVALID_ENUM:                   string = "GL_INVALID_ENUM";
-				case GL_INVALID_OPERATION:              string = "GL_INVALID_OPERATION";
-				case GL_INVALID_VALUE:                  string = "GL_INVALID_VALUE";
-				case GL_INVALID_FRAMEBUFFER_OPERATION:  string = "GL_INVALID_FRAMEBUFFER_OPERATION";
-				case GL_OUT_OF_MEMORY:                  string = "GL_OUT_OF_MEMORY";
+				case GL_NO_ERROR: string = "GL_NO_ERROR";
+				case GL_INVALID_ENUM: string = "GL_INVALID_ENUM";
+				case GL_INVALID_OPERATION: string = "GL_INVALID_OPERATION";
+				case GL_INVALID_VALUE: string = "GL_INVALID_VALUE";
+				case GL_INVALID_FRAMEBUFFER_OPERATION: string = "GL_INVALID_FRAMEBUFFER_OPERATION";
+				case GL_OUT_OF_MEMORY: string = "GL_OUT_OF_MEMORY";
 			}
 			Console::Log("There was an OpenGL error: %s", string.c_str());
 		}
@@ -150,7 +155,7 @@ namespace xGame2D
 		if (stateStackSize == stateStackIndex + 1)
 		{
 			stateStack.push_back(Object::generate<RenderState>());
-			stateStackSize++;
+			++stateStackSize;
 		}
 		stateStackTop = stateStack[++stateStackIndex];
 		stateStackTop->setupDerived(previousState, matrix, alpha, blendMode);
@@ -178,7 +183,7 @@ namespace xGame2D
 		{
 			rectangle = rectangle->intersectionWithRectangle(clipRectStack[clipRectStackSize - 1]);
 		}
-		clipRectStackSize++;
+		++clipRectStackSize;
 		applyClipRect();
 		return rectangle;
 	}
@@ -187,7 +192,7 @@ namespace xGame2D
 	{
 		if (clipRectStackSize > 0)
 		{
-			clipRectStackSize--;
+			--clipRectStackSize;
 			applyClipRect();
 		}
 	}
@@ -195,7 +200,7 @@ namespace xGame2D
 	void RenderSupport::applyClipRect()
 	{
 		finishQuadBatch();
-        if (!Game::getInstance()) return;
+		if (!Game::getInstance()) return;
 		auto context = Game::getInstance()->context;
 		if (!context) return;
 		if (clipRectStackSize > 0)
@@ -275,7 +280,7 @@ namespace xGame2D
 		auto numUsedBatches = quadBatchIndex + 1;
 		if (quadBatchSize >= 16 && quadBatchSize > 2 * numUsedBatches)
 		{
-			for (auto i = quadBatchSize - 1; i > quadBatchIndex; i++)
+			for (auto i = quadBatchSize - 1; i > quadBatchIndex; ++i)
 			{
 				auto batch = quadBatches[i];
 				batch->release();

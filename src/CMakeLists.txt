@@ -1,4 +1,4 @@
-include_directories(. ../third-party/win32/include)
+include_directories(.)
 aux_source_directory(base xGame2D_base_src)
 aux_source_directory(display xGame2D_display_src)
 aux_source_directory(geom xGame2D_geom_src)
@@ -15,4 +15,4 @@ set(xGame2D_src Game.cpp
     ${xGame2D_timer_src}
     ${xGame2D_util_src}
 )
-add_executable(xGame2D ${xGame2D_src})
+add_library(xGame2D ${xGame2D_src})

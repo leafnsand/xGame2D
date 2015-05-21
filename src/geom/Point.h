@@ -30,7 +30,7 @@ namespace xGame2D
 		Point *truncateLength(float maxLength);
 		float dot(Point *value);
 		bool isEqualTo(Point *value);
-		void clone(Point *poing);
+		void clone(Point *value);
 		void set(float x, float y);
 
 		static float distanceBetween(Point *p1, Point *p2);

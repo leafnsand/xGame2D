@@ -8,7 +8,7 @@
 #include "display/QuadBatch.h"
 #include "textures/Texture.h"
 #include "util/Console.h"
-#include "Game.h"
+#include "platform/Application.h"
 
 namespace xGame2D
 {
@@ -200,8 +200,8 @@ namespace xGame2D
 	void RenderSupport::applyClipRect()
 	{
 		finishQuadBatch();
-		if (!Game::getInstance()) return;
-		auto context = Game::getInstance()->context;
+		if (!Application::getInstance()) return;
+		auto context = Application::getInstance()->context;
 		if (!context) return;
 		if (clipRectStackSize > 0)
 		{
@@ -261,13 +261,13 @@ namespace xGame2D
 
 	Texture *RenderSupport::getRenderTarget()
 	{
-		return Game::getInstance()->context->getRenderTarget();
+		return Application::getInstance()->context->getRenderTarget();
 	}
 
 	void RenderSupport::setRenderTarget(Texture *value)
 	{
 		applyClipRect();
-		Game::getInstance()->context->setRenderTarget(value);
+		Application::getInstance()->context->setRenderTarget(value);
 	}
 
 	int32_t RenderSupport::getNumDrawCalls()

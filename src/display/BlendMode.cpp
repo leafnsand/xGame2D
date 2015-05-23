@@ -1,5 +1,5 @@
 #include "display/BlendMode.h"
-#include "render/OpenGL.h"
+#include "platform/OpenGL.h"
 
 namespace xGame2D
 {

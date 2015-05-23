@@ -2,7 +2,7 @@
 #define __X_PROGRAM_H__
 
 #include "base/Object.h"
-#include "render/OpenGL.h"
+#include "platform/OpenGL.h"
 #include <string>
 #include <map>
 

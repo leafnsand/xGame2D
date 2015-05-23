@@ -1,6 +1,6 @@
 #include "timer/UpdateTimer.h"
 #include "timer/TimerHandler.h"
-#include "Game.h"
+#include "platform/Application.h"
 
 namespace xGame2D
 {
@@ -38,6 +38,6 @@ namespace xGame2D
 
 	void UpdateTimer::cancel()
 	{
-		Game::getInstance()->timerHandler->unregisterUpdateTimer(target);
+		Application::getInstance()->timerHandler->unregisterUpdateTimer(target);
 	}
 }

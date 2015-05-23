@@ -7,7 +7,7 @@
 namespace xGame2D
 {
 	class Object;
-	class Game;
+	class Application;
 
 	class AutoreleasePool
 	{
@@ -39,7 +39,7 @@ namespace xGame2D
 		static AutoreleasePool *instance;
 		std::vector<Object *> cache;
 
-		friend class Game;
+		friend class Application;
 	};
 }
 

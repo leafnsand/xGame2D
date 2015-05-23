@@ -1,6 +1,6 @@
 #include "timer/CallbackTimer.h"
 #include "timer/TimerHandler.h"
-#include "Game.h"
+#include "platform/Application.h"
 
 namespace xGame2D
 {
@@ -36,6 +36,6 @@ namespace xGame2D
 
 	void CallbackTimer::cancel()
 	{
-		Game::getInstance()->timerHandler->unregisterCallbackTimer(target, key);
+		Application::getInstance()->timerHandler->unregisterCallbackTimer(target, key);
 	}
 }

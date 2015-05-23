@@ -1,7 +1,6 @@
 #include "render/Context.h"
-#include "render/OpenGL.h"
+#include "platform/OpenGL.h"
 #include "geom/Rectangle.h"
-#include "Game.h"
 
 namespace xGame2D
 {

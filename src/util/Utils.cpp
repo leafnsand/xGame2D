@@ -1,23 +1,14 @@
-#include "base/Platform.h"
 #include "base/Data.h"
+#include "platform/FileUitls.h"
 #include "util/Utils.h"
-#include <climits>
-#include <cstdlib>
 #include <sys/stat.h>
 #include <iostream>
 #include <fstream>
-
-#if defined(X_PLATFORM_WIN)
-#	include <direct.h>
-#	include <Windows.h>
-#else
-#	include <unistd.h>
-#endif
+#include <ctime>
 
 namespace xGame2D
 {
 	static std::string currentDir = "";
-	static float frequency = 0;
 
 	int32_t Utils::nextPowerOfTwo(int32_t number)
 	{
@@ -48,33 +39,7 @@ namespace xGame2D
 
 	Data *Utils::readFile(std::string &path)
 	{
-#if defined(X_PLATFORM_WIN)
-		if (currentDir.empty())
-		{
-			char cwd[256];
-			_getcwd(cwd, sizeof(cwd));
-			currentDir = cwd;
-			currentDir.append("\\");
-		}
-		if (!(path.length() > 2
-			&& ((path[0] >= 'a' && path[0] <= 'z') || (path[0] >= 'A' && path[0] <= 'Z'))
-			&& path[1] == ':'))
-		{
-			path.insert(0, currentDir);
-		}
-#else
-		if (currentDir.empty())
-		{
-			char cwd[256];
-			getcwd(cwd, sizeof(cwd));
-			currentDir = cwd;
-			currentDir.append("/");
-		}
-		if (path[0] != '/')
-		{
-			path.insert(0, currentDir);
-		}
-#endif
+		path = FileUtils::getInstance()->getFullPath(path);
 		struct stat s;
 		if (stat(path.c_str(), &s) != -1 && ((s.st_mode & S_IFMT) != 0))
 		{
@@ -88,23 +53,5 @@ namespace xGame2D
 			return Object::create<Data>(buffer, size);
 		}
 		return nullptr;
-	}
-
-	float Utils::now() {
-		float t;
-#if defined(X_PLATFORM_WIN)
-		LARGE_INTEGER time;
-		if (frequency == 0)
-		{
-			QueryPerformanceFrequency(&time);
-			frequency = static_cast<float>(time.QuadPart);
-		}
-		QueryPerformanceCounter(&time);
-		t = static_cast<float>(time.QuadPart);
-		t /= frequency;
-#elif defined(X_PLATFORM_LINUX)
-#elif defined(X_PLATFORM_OSX)
-#endif
-		return t;
 	}
 }

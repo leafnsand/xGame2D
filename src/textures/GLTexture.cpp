@@ -1,4 +1,4 @@
-#include "render/OpenGL.h"
+#include "platform/OpenGL.h"
 #include "textures/GLTexture.h"
 #include "util/Console.h"
 #include "util/PVRData.h"

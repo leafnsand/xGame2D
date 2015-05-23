@@ -2,9 +2,8 @@
 #include "render/Program.h"
 #include "render/ProgramCache.h"
 #include "geom/Matrix.h"
+#include "platform/Application.h"
 #include "textures/Texture.h"
-#include "base/Platform.h"
-#include "Game.h"
 
 namespace xGame2D
 {
@@ -51,13 +50,13 @@ namespace xGame2D
 		if (!program)
 		{
 			auto programName = getProgramName(hasTexture, useTinting);
-			program = Game::getInstance()->programCache->getProgram(programName);
+			program = Application::getInstance()->programCache->getProgram(programName);
 			if (!program)
 			{
 				auto vertexShader = vertexShaderForTexture(texture, useTinting);
 				auto fragmentShader = fragmentShaderForTexture(texture, useTinting);
 				program = Object::generate<Program>(vertexShader, fragmentShader);
-				Game::getInstance()->programCache->registerProgram(program, programName);
+				Application::getInstance()->programCache->registerProgram(program, programName);
 			}
 			program->retain();
 			std::string name;
@@ -174,7 +173,7 @@ namespace xGame2D
 	{
 		auto hasTexture = texture != nullptr;
 		std::string source;
-#if defined(X_PLATFORM_MACOSX) || defined(X_PLATFORM_WIN)
+#if (OPENGLES == 0)
 		source.append("#define lowp\n");
 #endif
 		source.append("attribute vec4 aPosition;\n");
@@ -214,7 +213,7 @@ namespace xGame2D
 	{
 		auto hasTexture = texture != nullptr;
 		std::string source;
-#if defined(X_PLATFORM_MACOSX) || defined(X_PLATFORM_WIN)
+#if (OPENGLES == 0)
 		source.append("#define lowp\n");
 #endif
 		if (useTinting)

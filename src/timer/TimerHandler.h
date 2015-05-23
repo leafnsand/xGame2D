@@ -6,8 +6,8 @@
 #include <map>
 #include <functional>
 
-#define UPDATE(f) std::bind(&f, this, std::placeholders::_1)
-#define CALLBACK(f) std::bind(&f, this)
+#define X_UPDATE(f) std::bind(&f, this, std::placeholders::_1)
+#define X_CALLBACK(f) std::bind(&f, this)
 
 namespace xGame2D
 {

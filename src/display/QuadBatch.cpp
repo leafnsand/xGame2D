@@ -2,7 +2,7 @@
 #include "display/Quad.h"
 #include "display/BlendMode.h"
 #include "display/DisplayObjectContainer.h"
-#include "render/OpenGL.h"
+#include "platform/OpenGL.h"
 #include "render/BaseEffect.h"
 #include "render/RenderSupport.h"
 #include "textures/Texture.h"

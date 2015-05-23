@@ -28,21 +28,21 @@ namespace xGame2D
 		{
 			updateTimer = *updateIterator;
 			++updateIterator;
-			updateTimer->trigger();
+			updateTimer->update(delta);
 		}
 		updateIterator = zeroUpdateTimers.begin();
 		while (updateIterator != zeroUpdateTimers.end())
 		{
 			updateTimer = *updateIterator;
 			++updateIterator;
-			updateTimer->trigger();
+			updateTimer->update(delta);
 		}
 		updateIterator = posUpdateTimers.begin();
 		while (updateIterator != posUpdateTimers.end())
 		{
 			updateTimer = *updateIterator;
 			++updateIterator;
-			updateTimer->trigger();
+			updateTimer->update(delta);
 		}
 
 		std::map<void *, CallbackTimerMapNode*>::iterator callbackIterator;

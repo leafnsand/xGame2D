@@ -9,7 +9,7 @@ class MyApplication : public IApplication
 {
 public:
     MyApplication();
-    ~MyApplication();
+    virtual ~MyApplication();
 
     virtual int32_t getFrameRate() const override;
     virtual int32_t getWindowWidth() const override;

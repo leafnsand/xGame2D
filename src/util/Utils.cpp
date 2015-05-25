@@ -40,10 +40,9 @@ namespace xGame2D
 	Data *Utils::readFile(std::string &path)
 	{
 		path = FileUtils::getInstance()->getFullPath(path);
-		struct stat s;
-		if (stat(path.c_str(), &s) != -1 && ((s.st_mode & S_IFMT) != 0))
+		std::ifstream file(path.c_str(), std::ios::binary);
+		if (file.good())
 		{
-			std::ifstream file(path.c_str(), std::ios::binary);
 			file.seekg(0, file.end);
 			auto size = static_cast<size_t>(file.tellg());
 			file.seekg(0, file.beg);
@@ -52,6 +51,7 @@ namespace xGame2D
 			file.close();
 			return Object::create<Data>(buffer, size);
 		}
+		file.close();
 		return nullptr;
 	}
 }

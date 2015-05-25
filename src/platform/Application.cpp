@@ -17,10 +17,34 @@ namespace xGame2D
 
     Application::~Application()
     {
-        programCache->release();
-        textureCache->release();
-        support->release();
-        stage->release();
+        if (app)
+        {
+            delete app;
+        }
+        if (programCache)
+        {
+            programCache->release();
+        }
+        if (textureCache)
+        {
+            textureCache->release();
+        }
+        if (context)
+        {
+            context->release();
+        }
+        if (support)
+        {
+            support->release();
+        }
+        if (stage)
+        {
+            stage->release();
+        }
+        if (timerHandler)
+        {
+            timerHandler->release();
+        }
         AutoreleasePool::getInstance()->destroy();
     }
 

@@ -10,6 +10,7 @@ namespace xGame2D
     class IApplication
     {
     public:
+        virtual ~IApplication() {};
         virtual int32_t getFrameRate() const = 0;
         virtual int32_t getWindowWidth() const = 0;
         virtual int32_t getWindowHeight() const = 0;

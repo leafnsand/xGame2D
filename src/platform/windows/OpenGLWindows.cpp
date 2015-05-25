@@ -24,10 +24,10 @@ namespace xGame2D
             if (glewInit() != GLEW_OK)
             {
                 Console::Error("GLEW init error.");
-                return false;
             }
+            return true;
         }
-        return true;
+        return false;
     }
 
     void OpenGLWindows::pollEvents()

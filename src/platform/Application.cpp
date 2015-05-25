@@ -48,6 +48,11 @@ namespace xGame2D
         AutoreleasePool::getInstance()->destroy();
     }
 
+    void Application::addRootSprite()
+    {
+        stage->addChild(app->getRootSprite());
+    }
+
     int32_t Application::run(const IApplication *app)
     {
         this->app = app;
@@ -56,7 +61,6 @@ namespace xGame2D
         this->context = Object::generate<Context>();
         this->support = Object::generate<RenderSupport>();
         this->stage = Object::generate<Stage>(this->app->getWindowWidth(), this->app->getWindowHeight(), this->app->getWindowBackgroundColor());
-        this->stage->addChild(this->app->getRootSprite());
         this->timerHandler = Object::generate<TimerHandler>();
         lastUpdate = std::chrono::system_clock::now();
         return 0;

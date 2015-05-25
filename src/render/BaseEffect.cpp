@@ -45,7 +45,7 @@ namespace xGame2D
 
 	void BaseEffect::prepareToDraw()
 	{
-		auto hasTexture = texture != nullptr;
+		bool hasTexture = texture != nullptr;
 		auto useTinting = this->useTinting || !texture || alpha != 1.0f;
 		if (!program)
 		{
@@ -171,7 +171,7 @@ namespace xGame2D
 
 	std::string BaseEffect::vertexShaderForTexture(Texture *texture, bool useTinting)
 	{
-		auto hasTexture = texture != nullptr;
+		bool hasTexture = texture != nullptr;
 		std::string source;
 #if (OPENGLES == 0)
 		source.append("#define lowp\n");
@@ -211,7 +211,7 @@ namespace xGame2D
 
 	std::string BaseEffect::fragmentShaderForTexture(Texture *texture, bool useTinting)
 	{
-		auto hasTexture = texture != nullptr;
+		bool hasTexture = texture != nullptr;
 		std::string source;
 #if (OPENGLES == 0)
 		source.append("#define lowp\n");

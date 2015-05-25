@@ -35,6 +35,7 @@ namespace xGame2D
         QueryPerformanceCounter(&lastUpdate);
 
         gl = Object::generate<OpenGLWindows>(this->app->getWindowName(), this->app->getWindowWidth(), this->app->getWindowHeight());
+        addRootSprite();
         while (!gl->windowShouldClose())
         {
             QueryPerformanceCounter(&now);

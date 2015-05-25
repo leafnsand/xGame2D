@@ -152,7 +152,7 @@ namespace xGame2D
 			}
 		}
 		glBindTexture(GL_TEXTURE_2D, 0);
-		auto containsMipmaps = properties.numMipmaps > 0 || (properties.generateMipmaps && !compressed);
+		bool containsMipmaps = properties.numMipmaps > 0 || (properties.generateMipmaps && !compressed);
 		return init(glTexName, properties.format, static_cast<float>(properties.width), static_cast<float>(properties.height)
 		            , containsMipmaps, properties.scale, properties.premultipliedAlpha);
 	}

@@ -14,7 +14,7 @@ namespace xGame2D
 	{
 	}
 
-	bool CallbackTimer::init(void *target, const std::function<void()> &callback, float interval, uint32_t repeat, float delay, std::string &key)
+	bool CallbackTimer::init(void *target, const std::function<void()> &callback, float interval, uint32_t repeat, float delay, const std::string &key)
 	{
 		if (Timer::init(interval, repeat, delay))
 		{

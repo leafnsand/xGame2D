@@ -77,7 +77,7 @@ namespace xGame2D
 			{
 				auto log = static_cast<char *>(malloc(sizeof(char) * length));
 				glGetProgramInfoLog(program, length, nullptr, log);
-				Console::Error("Error linking program: %s", log);
+				Console::error << "Error linking program: " << log << Console::endl;
 				free(log);
 			}
 		}
@@ -107,8 +107,9 @@ namespace xGame2D
 			{
 				auto log = static_cast<char *>(malloc(sizeof(char) * logLength));
 				glGetShaderInfoLog(shader, logLength, nullptr, log);
-				Console::Error("Error compiling %s shader: %s",
-				               type == GL_VERTEX_SHADER ? "vertex" : "fragment", log);
+				Console::error << "Error compiling "
+				<< (type == GL_VERTEX_SHADER ? "vertex": "fragment")
+				<< " shader: " << log << Console::endl;
 				free(log);
 			}
 			glDeleteShader(shader);

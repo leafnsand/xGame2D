@@ -13,7 +13,7 @@ namespace xGame2D
 		virtual ~CallbackTimer();
 
 	public:
-		bool init(void *target, const std::function<void()> &callback, float interval, uint32_t repeat, float delay, std::string &key);
+		bool init(void *target, const std::function<void()> &callback, float interval, uint32_t repeat, float delay, const std::string &key);
 		virtual void trigger() override;
 		virtual void cancel() override;
 

@@ -20,12 +20,12 @@ namespace xGame2D
         static Application *getInstance();
         ~Application();
 
-        void addRootSprite();
         virtual int32_t run(const IApplication *app);
 
     protected:
         Application();
         void mainloop();
+        void addRootSprite();
 
     public:
         ProgramCache *programCache;

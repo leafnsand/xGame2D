@@ -23,7 +23,7 @@ namespace xGame2D
             glfwMakeContextCurrent(window);
             if (glewInit() != GLEW_OK)
             {
-                Console::Error("GLEW init error.");
+                Console::error << "GLEW init error." << Console::endl;
             }
             return true;
         }
@@ -57,6 +57,6 @@ namespace xGame2D
 
     void OpenGLWindows::onGLFWError(int errorID, const char *errorDesc)
     {
-        Console::Error("glfw error, code: %d, string: %s.", errorID, errorDesc);
+        Console::error << "glfw error, code: " << errorID << ", string: " << errorDesc << Console::endl;
     }
 }

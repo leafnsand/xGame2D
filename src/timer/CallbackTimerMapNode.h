@@ -16,7 +16,7 @@ namespace xGame2D
 		virtual ~CallbackTimerMapNode();
 
 	public:
-		void pushTimer(const std::function<void()> &callback, float interval, uint32_t repeat, float delay, std::string &key);
+		void pushTimer(const std::function<void()> &callback, float interval, uint32_t repeat, float delay, const std::string &key);
 		void popTimer(std::string &key);
 		void popAll();
 		void update(float delta);

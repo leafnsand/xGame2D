@@ -299,7 +299,7 @@ namespace xGame2D
 		}
 		else
 		{
-			Console::Error("Unsupported display object");
+			Console::error << "Unsupported display object" << Console::endl;
 		}
 		if (isRootObject)
 		{

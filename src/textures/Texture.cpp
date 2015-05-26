@@ -89,25 +89,25 @@ namespace xGame2D
 		source.offset = 0;
 		if (png_sig_cmp(source.data, 0, 8))
 		{
-			Console::Log("file(%s) is not a png image.", path.c_str());
+			Console::log << "file(" << path << ") is not a png image." << Console::endl;
 			return nullptr;
 		}
 		auto png_ptr = png_create_read_struct(PNG_LIBPNG_VER_STRING, nullptr, nullptr, nullptr);
 		if (png_ptr == nullptr)
 		{
-			Console::Log("create png struct error.");
+			Console::log << "create png struct error." << Console::endl;
 			return nullptr;
 		}
 		auto info_ptr = png_create_info_struct(png_ptr);
 		if (info_ptr == nullptr)
 		{
-			Console::Log("create png info error.");
+			Console::log << "create png info error." << Console::endl;
 			png_destroy_read_struct(&png_ptr, nullptr, nullptr);
 			return nullptr;
 		}
 		if (setjmp(png_jmpbuf(png_ptr)))
 		{
-			Console::Log("set png jump buffer error.");
+			Console::log << "set png jump buffer error." << Console::endl;
 			png_destroy_read_struct(&png_ptr, &info_ptr, nullptr);
 			return nullptr;
 		}
@@ -156,7 +156,7 @@ namespace xGame2D
 				format = TextureFormatRGBA;
 				break;
 			default:
-				Console::Log("invalid png color type.");
+				Console::log << "invalid png color type." << Console::endl;
 				break;
 		}
 		png_size_t rowbytes;

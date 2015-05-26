@@ -62,7 +62,7 @@ namespace xGame2D
 				pivotX = bounds->x + bounds->width;
 				break;
 			default:
-				Console::Error("Invalid horizontal alignment");
+				Console::log << "Invalid horizontal alignment" << Console::endl;
 				break;
 		}
 		switch (vAlign)
@@ -77,7 +77,7 @@ namespace xGame2D
 				pivotY = bounds->y + bounds->height;
 				break;
 			default:
-				Console::Error("Invalid vertical alignment");
+				Console::log << "Invalid vertical alignment" << Console::endl;
 				break;
 		}
 	}
@@ -245,7 +245,7 @@ namespace xGame2D
 	float DisplayObject::getScale()
 	{
 		if (!IsFloatEqual(scaleX, scaleX))
-			Console::Log("WARNING: Scale is not uniform, Use the approriate scaleX and scaleY properties.");
+			Console::log << "WARNING: Scale is not uniform, Use the approriate scaleX and scaleY properties." << Console::endl;
 		return scaleX;
 	}
 

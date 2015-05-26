@@ -23,7 +23,10 @@ namespace xGame2D
 
 	public:
 		void update(float delta);
-		void registerCallbackTimer(void *target, const std::function<void()> &callback, float interval, uint32_t repeat, float delay, bool paused, std::string &key);
+		void registerCallbackTimer(void *target, const std::function<void()> &callback, float interval, bool paused, const std::string &key);
+		void registerCallbackTimer(void *target, const std::function<void()> &callback, float interval, uint32_t repeat, float delay, bool paused, const std::string &key);
+		void registerUpdateTimer(void *target, const std::function<void(float)> &update);
+		void registerUpdateTimer(void *target, const std::function<void(float)> &update, int32_t priority);
 		void registerUpdateTimer(void *target, const std::function<void(float)> &update, int32_t priority, bool paused);
 		void unregisterCallbackTimer(void *target, std::string &key);
 		void unregisterUpdateTimer(void *target);

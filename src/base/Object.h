@@ -12,7 +12,7 @@
 #	define X_ASSERT(condition, message) do { \
 		if (!(condition)) \
 		{ \
-			Console::Error(message); \
+			Console::error << message; \
 		} \
 	} while (0)
 #else

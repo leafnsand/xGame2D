@@ -93,7 +93,7 @@ namespace xGame2D
 				break;
 #endif
 			default:
-				Console::Error("Unsupported PVR image format");
+				Console::error << "Unsupported PVR image format" << Console::endl;
 		}
 		return true;
 	}

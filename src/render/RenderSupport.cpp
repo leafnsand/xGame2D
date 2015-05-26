@@ -133,7 +133,7 @@ namespace xGame2D
 				case GL_INVALID_FRAMEBUFFER_OPERATION: string = "GL_INVALID_FRAMEBUFFER_OPERATION";
 				case GL_OUT_OF_MEMORY: string = "GL_OUT_OF_MEMORY";
 			}
-			Console::Log("There was an OpenGL error: %s", string.c_str());
+			Console::log << "There was an OpenGL error: " << string << Console::endl;
 		}
 		return error;
 	}

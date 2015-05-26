@@ -13,13 +13,13 @@ namespace xGame2D
 	{
 	}
 
-	void CallbackTimerMapNode::pushTimer(const std::function<void()> &callback, float interval, uint32_t repeat, float delay, std::string &key)
+	void CallbackTimerMapNode::pushTimer(const std::function<void()> &callback, float interval, uint32_t repeat, float delay, const std::string &key)
 	{
 		for (auto iterator = timers.begin(); iterator != timers.end(); ++iterator)
 		{
 			if ((*iterator)->key == key)
 			{
-				Console::Log("Timer already scheduled. Updating interval from : %.4f to %.4f", (*iterator)->interval, interval);
+				Console::log << "Timer already scheduled. Updating interval from : " << (*iterator)->interval << " to " << interval << Console::endl;
 				(*iterator)->interval = interval;
 				return;
 			}

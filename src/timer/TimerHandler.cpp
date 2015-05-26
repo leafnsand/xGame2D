@@ -57,7 +57,12 @@ namespace xGame2D
 		}
 	}
 
-	void TimerHandler::registerCallbackTimer(void *target, const std::function<void()> &callback, float interval, uint32_t repeat, float delay, bool paused, std::string &key)
+	void TimerHandler::registerCallbackTimer(void *target, const std::function<void()> &callback, float interval, bool paused, const std::string &key)
+	{
+		registerCallbackTimer(target, callback, interval, UINT32_MAX, 0.0f, paused, key);
+	}
+
+	void TimerHandler::registerCallbackTimer(void *target, const std::function<void()> &callback, float interval, uint32_t repeat, float delay, bool paused, const std::string &key)
 	{
 		X_ASSERT(target, "target must be non-nullptr");
 		X_ASSERT(!key.empty(), "key should not be empty!");
@@ -96,6 +101,17 @@ namespace xGame2D
 		}
 	}
 
+
+	void TimerHandler::registerUpdateTimer(void *target, const std::function<void(float)> &update)
+	{
+		registerUpdateTimer(target, update, 0);
+	}
+
+	void TimerHandler::registerUpdateTimer(void *target, const std::function<void(float)> &update, int32_t priority)
+	{
+		registerUpdateTimer(target, update, priority, false);
+	}
+
 	void TimerHandler::registerUpdateTimer(void *target, const std::function<void(float)> &update, int32_t priority, bool paused)
 	{
 		X_ASSERT(target, "target must be non-nullptr");
@@ -112,7 +128,7 @@ namespace xGame2D
 				}
 				else
 				{
-					Console::Log("warning: you CANNOT change update priority in register function");
+					Console::log << "warning: you CANNOT change update priority in register function" << Console::endl;
 					node->timer->paused = paused;
 					return;
 				}
